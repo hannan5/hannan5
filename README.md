@@ -19,7 +19,7 @@
 
 - 💬 Ask me about **React NodeJs, Python, JavaScript**
 
-- 📫 How to reach me **hannankhan7987@gmail.com@gmail.com**
+- 📫 How to reach me **hannankhan7987@gmail.com**
 
 
 <!-- - ⚡ Follow me **https://www.instagram.com/i_am_ali_zk/** -->
