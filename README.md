@@ -1,7 +1,7 @@
 <h1 align="center">Hi 👋, I'm Abdul Hannan </h1>
 <h1 align="center">Student of BS Computer Science :office: ✨</h1>
 <h3 align="center">- ⚡ Fun fact: I am not always coding.</h3>
-<p align="center"> <img src="https://komarev.com/ghpvc/?username=ALI-ZIA-KHAN" alt="ALI-ZIA-KHAN" /> </p>
+<p align="center"> <img src="https://komarev.com/ghpvc/?username=hannan5" alt="ALI-ZIA-KHAN" /> </p>
 <!-- <p align="center"> <img src="https://pbs.twimg.com/profile_images/1277983466689376257/XYVxh8lA_400x400.jpg" alt="ALI-ZIA-KHAN" /> </p> -->
 <p align="center"> <img src="https://bpoacceptor.com/ecesisjobs.com/assets/img/programjobs.jpg" alt="ALI-ZIA-KHAN" /> </p>
  
