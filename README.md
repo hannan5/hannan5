@@ -157,12 +157,12 @@
 <br/>
 <p align="left">
 <img height="300px" src="https://github-readme-stats.vercel.app/api/top-langs/?username=hannan5&theme=synthwave">
-<img align="right" height="300px" width="500px" src="https://github-readme-streak-stats.herokuapp.com/?user=hannna5&theme=synthwave">
+<!-- <img align="right" height="300px" width="500px" src="https://github-readme-streak-stats.herokuapp.com/?user=hannna5&theme=synthwave"> -->
 </p>
-<p> 
-<a href="https://github.com/hannan5/github-readme-activity-graph">
+<!-- <p>  -->
+<!-- <a href="https://github.com/hannan5/github-readme-activity-graph">
   <img alt="Ali's Activity Graph" 
-  src="https://activity-graph.herokuapp.com/graph/?username=hannan5&bg_color=000&color=fff&line=00E676&point=fff&hide_border=true" /></a>
- </p>
+  src="https://activity-graph.herokuapp.com/graph/?username=hannan5&bg_color=000&color=fff&line=00E676&point=fff&hide_border=true" /></a> -->
+ <!-- </p> -->
 <br/>
 <Footer>
