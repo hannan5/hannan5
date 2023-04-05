@@ -118,7 +118,7 @@
 
 
 <p align="center">  
-<img src="https://github-readme-stats.vercel.app/api?username=ALI-ZIA-KHAN&include_all_commits=true&count_private=true&show_icons=true&line_height=20&title_color=7A7ADB&icon_color=2234AE&text_color=D3D3D3&bg_color=0,000000,130F40" alt="Ali's Github Stats">
+<img src="https://github-readme-stats.vercel.app/api?username=hannan5&include_all_commits=true&count_private=true&show_icons=true&line_height=20&title_color=7A7ADB&icon_color=2234AE&text_color=D3D3D3&bg_color=0,000000,130F40" alt="Ali's Github Stats">
 </p>
 
 <div>
@@ -139,7 +139,7 @@
      <br/>
     </p>
   <p align="center">
-      <a href="https://www.instagram.com/i_am_ali_zk/?hl=en" target="_blank"><img align="center"
+      <a href="https://www.instagram.com/hannankhan52/?hl=en" target="_blank"><img align="center"
          src="https://img.shields.io/badge/instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white"
          alt="azzar" height="30"/></a>
       <a href="https://github.com/hannan5/" target="_blank"><img align="center"
