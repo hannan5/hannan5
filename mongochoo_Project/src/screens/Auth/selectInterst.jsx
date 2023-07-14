@@ -76,7 +76,12 @@ export function SelectInterst({navigation}) {
         .then(res => {
           navigation.navigate('location');
         })
-        .catch(e => {});
+        .catch(e => {
+          console.log(e?.response?.data?.message);
+        })
+        .finally(() => {
+          setLoader(false);
+        });
     }
   };
   return (

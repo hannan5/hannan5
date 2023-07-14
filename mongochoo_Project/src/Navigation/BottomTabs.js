@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontFamily } from "../assests/Constants/FontFamily";
-import { Homescreenstack } from "./AppStack";
+import { Categoryscreenstack, Homescreenstack } from "./AppStack";
 import HomeIcon from '../assests/icons/homeIcon.png'
 import noteIcon from '../assests/icons/notes.png'
 import categoryIcon from '../assests/icons/category.png'
@@ -74,7 +74,7 @@ export default function TabNavigation() {
             })}>
             <Tab.Screen name="Home" component={Homescreenstack} options={navOptionHandler} />
             <Tab.Screen name="Notes" component={Homescreenstack} options={navOptionHandler} />
-            <Tab.Screen name="Category" component={Homescreenstack} options={navOptionHandler} />
+            <Tab.Screen name="Category" component={Categoryscreenstack} options={navOptionHandler} />
             <Tab.Screen name="Heart" component={Homescreenstack} options={navOptionHandler} />
             <Tab.Screen name="Setting" component={Homescreenstack} options={navOptionHandler} />
         </Tab.Navigator>

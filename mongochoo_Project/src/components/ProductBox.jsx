@@ -1,13 +1,24 @@
-import {Text, View, ScrollView, StyleSheet, Image} from 'react-native';
+import {
+  Text,
+  View,
+  ScrollView,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import img from '../assests/icons/cleaning.png';
 import location from '../assests/icons/location.png';
 import notify from '../assests/icons/notification.png';
 import heart from '../assests/icons/heart.png';
 import photo from '../assests/icons/photo.png';
 
-const ProductBox = () => {
+const ProductBox = ({navigation}) => {
   return (
-    <View style={styles.box_main}>
+    <TouchableOpacity
+      style={styles.box_main}
+      onPress={() => {
+        navigation.navigate('Productdetails');
+      }}>
       <View>
         <Image
           source={img}
@@ -61,7 +72,7 @@ const ProductBox = () => {
         </View>
         <Text style={styles.heading}>Cleaning Serving</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 export default ProductBox;

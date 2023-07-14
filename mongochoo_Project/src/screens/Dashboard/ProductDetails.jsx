@@ -1,4 +1,4 @@
-import {Image, ScrollView, StyleSheet, View, Text} from 'react-native';
+import {Image, ScrollView, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import notify from '../../assests/icons/notification.png';
 import location from '../../assests/icons/location-white.png';
 import heart from '../../assests/icons/heart-white.png';
@@ -7,8 +7,11 @@ import arrow from '../../assests/icons/arrow-left.png';
 import img from '../../assests/icons/cleaning.png';
 import photo from '../../assests/icons/photo.png';
 import user from '../../assests/icons/user.png';
+import ignoreIcon from '../../assests/icons/ignore-icon.png';
+import messageIcon from '../../assests/icons/message-icon.png';
+import offerIcon from '../../assests/icons/offer-icon.png';
 
-const ProductDetails = () => {
+const ProductDetails = ({navigation}) => {
   const product_details = [
     {
       name: 'Man',
@@ -70,20 +73,21 @@ const ProductDetails = () => {
                 alignItems: 'center',
                 width: '100%',
               }}>
-              <View>
+              <TouchableOpacity onPress={()=>navigation.goBack()} >
                 <Image
                   source={arrow}
                   style={{
-                    width: 40,
+                    width: 30,
                     objectFit: 'contain',
                   }}
+                
                 />
-              </View>
+              </TouchableOpacity>
               <View>
                 <Image
                   source={notify}
                   style={{
-                    width: 40,
+                    width: 30,
                     objectFit: 'contain',
                   }}
                 />
@@ -209,6 +213,50 @@ const ProductDetails = () => {
               ))}
             </View>
           </View>
+          <View style={styles.description_button}>
+            <View style={{alignItems: 'center'}}>
+              <View style={{...styles.icon_view, backgroundColor: '#ABABAB'}}>
+                <Image
+                  source={ignoreIcon}
+                  style={{
+                    width: 40,
+                    objectFit: 'contain',
+                  }}
+                />
+              </View>
+              <Text style={{color: '#6B6B6B', fontSize: 13, fontWeight: 300}}>
+                Ignore
+              </Text>
+            </View>
+            <View style={{alignItems: 'center'}}>
+              <View style={styles.icon_view}>
+                <Image
+                  source={offerIcon}
+                  style={{
+                    width: 30,
+                    objectFit: 'contain',
+                  }}
+                />
+              </View>
+              <Text style={{color: '#6B6B6B', fontSize: 13, fontWeight: 300}}>
+                Offer
+              </Text>
+            </View>
+            <View style={{alignItems: 'center'}}>
+              <View style={styles.icon_view}>
+                <Image
+                  source={messageIcon}
+                  style={{
+                    width: 30,
+                    objectFit: 'contain',
+                  }}
+                />
+              </View>
+              <Text style={{color: '#6B6B6B', fontSize: 13, fontWeight: 300}}>
+                Message
+              </Text>
+            </View>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -263,6 +311,23 @@ const styles = StyleSheet.create({
   },
   product_description: {
     width: '85%',
-    height: 300,
+    // height: 300,
+  },
+  description_button: {
+    width: '85%',
+    height: 100,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    marginTop: 30,
+  },
+  icon_view: {
+    backgroundColor: '#000',
+    width: 60,
+    height: 60,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 50,
   },
 });

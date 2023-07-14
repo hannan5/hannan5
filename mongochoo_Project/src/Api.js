@@ -75,7 +75,7 @@ export const accountUsage = body => {
 export const GetInterst = async () => {
     const token = await AsyncStorage.getItem('token')
     try {
-        let res = axios.get(`${baseurl}interest`, {
+        let res = axios.get(`${baseurl}category`, {
             headers: { Authorization: `Bearer ${token}` },
         })
         return res;
@@ -86,9 +86,9 @@ export const GetInterst = async () => {
 
 export const PostInterst = async (body) => {
     const token = await AsyncStorage.getItem('token')
-    // console.log({ interests: body });
+    console.log({ categories: body }, token);
     try {
-        let res = axios.post(`${baseurl}interest`, { interests: body }, {
+        let res = axios.post(`${baseurl}category`, { categories: body }, {
             headers: { Authorization: `Bearer ${token}` },
         })
         return res;

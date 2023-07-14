@@ -138,10 +138,10 @@ const HomeScreen = ({navigation}) => {
 
             <View style={styles.head_screen}>
               <ScrollView style={{flex: 1}} horizontal={true}>
-                <ProductBox />
-                <ProductBox />
-                <ProductBox />
-                <ProductBox />
+                <ProductBox navigation={navigation} />
+                <ProductBox navigation={navigation} />
+                <ProductBox navigation={navigation} />
+                <ProductBox navigation={navigation} />
               </ScrollView>
             </View>
 
