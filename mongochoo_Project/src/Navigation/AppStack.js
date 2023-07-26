@@ -2,9 +2,12 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import HomeScreen from "../screens/Dashboard/Home"
 import ProductDetails from "../screens/Dashboard/ProductDetails"
 import Category from "../screens/Dashboard/Category"
+import FavouriteScreen from "../screens/Dashboard/Favourite"
 
 const Homestack = createNativeStackNavigator()
 const CategoryStack = createNativeStackNavigator()
+const FavouriteStack = createNativeStackNavigator()
+
 const navOptionHandler = () => (
     {
         headerShown: false
@@ -28,6 +31,16 @@ export const Categoryscreenstack = () => {
             <CategoryStack.Navigator initialRouteName='categoryScreen'>
                 <CategoryStack.Screen name="categoryScreen" component={Category} options={navOptionHandler} />
             </CategoryStack.Navigator>
+        </>
+    )
+}
+
+export const Favouritescreenstack = () => {
+    return (
+        <>
+            <FavouriteStack.Navigator initialRouteName='favouriteScreen'>
+                <FavouriteStack.Screen name="favouriteScreen" component={FavouriteScreen} options={navOptionHandler} />
+            </FavouriteStack.Navigator>
         </>
     )
 }

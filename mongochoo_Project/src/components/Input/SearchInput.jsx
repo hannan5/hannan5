@@ -1,4 +1,5 @@
 const {View, TextInput, StyleSheet, Image} = require('react-native');
+import {FontFamily} from '../../assests/Constants/FontFamily';
 import searchicon from '../../assests/icons/search-normal.png';
 import serviceicon from '../../assests/icons/serviceIcon.png';
 
@@ -10,7 +11,7 @@ const SearchInput = () => {
           ...styles.inputcontainer,
           borderColor: '#DFDFDF',
         }}>
-        <Image source={searchicon} style={{width: 30, objectFit: 'contain'}} />
+        <Image source={searchicon} style={{width: 20, objectFit: 'contain'}} />
         <View
           style={{
             display: 'flex',
@@ -24,7 +25,7 @@ const SearchInput = () => {
             placeholderTextColor="#BCBCBC"
           />
         </View>
-        <Image source={serviceicon} style={{width: 30, objectFit: 'contain'}} />
+        <Image source={serviceicon} style={{width: 35, objectFit: 'contain'}} />
       </View>
     </>
   );
@@ -48,6 +49,7 @@ const styles = StyleSheet.create({
   inputStyle: {
     color: '#000',
     fontSize: 17,
+    ...FontFamily.Medium,
   },
   checkbox: {
     width: 25,

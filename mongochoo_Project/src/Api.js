@@ -96,3 +96,54 @@ export const PostInterst = async (body) => {
         return error;
     }
 }
+
+
+export const GetService = async (param) => {
+    const token = await AsyncStorage.getItem('token')
+    console.log(token)
+    try {
+        let res = axios.get(`${baseurl}service?serviceParam=${param}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        })
+        return res;
+    } catch (error) {
+        return error;
+    }
+}
+
+export const GetSingleService = async (id) => {
+    const token = await AsyncStorage.getItem('token')
+    try {
+        let res = axios.get(`${baseurl}single/service/${id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        })
+        return res;
+    } catch (error) {
+        return error;
+    }
+}
+
+export const GetFavouriteService = async () => {
+    const token = await AsyncStorage.getItem('token')
+    try {
+        let res = axios.get(`${baseurl}favouriteService`, {
+            headers: { Authorization: `Bearer ${token}` },
+        })
+        return res;
+    } catch (error) {
+        return error;
+    }
+}
+
+export const PostFavouriteService = async (body) => {
+    console.log(body)
+    const token = await AsyncStorage.getItem('token')
+    try {
+        let res = axios.post(`${baseurl}favouriteService`, body, {
+            headers: { Authorization: `Bearer ${token}` },
+        },)
+        return res;
+    } catch (error) {
+        return error;
+    }
+}

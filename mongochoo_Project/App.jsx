@@ -10,15 +10,19 @@ import {SelectInterst} from './src/screens/Auth/selectInterst';
 import Routes from './src/Navigation/Routes';
 import {NavigationContainer} from '@react-navigation/native';
 import SignIn from './src/screens/Auth/signIn';
+import {Provider} from 'react-redux';
+import {Store} from './src/Store/Store';
 
 function App() {
   // setTimeout(() => {
   //   return <SplashScreen />;
   // }, 2000);
   return (
-    <NavigationContainer>
-      <Routes />
-    </NavigationContainer>
+    <Provider store={Store}>
+      <NavigationContainer>
+        <Routes />
+      </NavigationContainer>
+    </Provider>
   );
 }
 

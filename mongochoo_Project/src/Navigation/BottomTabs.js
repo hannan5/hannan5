@@ -1,11 +1,19 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontFamily } from "../assests/Constants/FontFamily";
-import { Categoryscreenstack, Homescreenstack } from "./AppStack";
-import HomeIcon from '../assests/icons/homeIcon.png'
+import { Categoryscreenstack, Favouritescreenstack, Homescreenstack } from "./AppStack";
+import HomeIcon from '../assests/icons/home.png'
+import Homeactive from '../assests/icons/homeIcon.png'
 import noteIcon from '../assests/icons/notes.png'
+import noteactive from '../assests/icons/notes-active.png'
 import categoryIcon from '../assests/icons/category.png'
+import categoryactive from '../assests/icons/category-active.png'
+
 import heartIcon from '../assests/icons/heart.png'
+import heartactive from '../assests/icons/heart-active.png'
+
 import settingIcon from '../assests/icons/setting.png'
+import settingactive from '../assests/icons/setting-active.png'
+
 
 
 import { Image } from 'react-native'
@@ -34,30 +42,31 @@ export default function TabNavigation() {
                     shadowRadius: 0,
                     elevation: 0,
                 },
+                tabBarShowLabel: false,
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
                     if (route.name === 'Home') {
                         iconName = focused
-                            ? HomeIcon
+                            ? Homeactive
                             : HomeIcon
                     }
                     else if (route.name === 'Notes') {
                         iconName = focused ?
-                            noteIcon
+                            noteactive
                             : noteIcon
                     } else if (route.name === 'Category') {
                         iconName = focused ?
-                            categoryIcon
+                            categoryactive
                             : categoryIcon
                     }
                     else if (route.name === 'Heart') {
                         iconName = focused ?
-                            heartIcon
+                            heartactive
                             : heartIcon
                     }
                     else if (route.name === 'Setting') {
                         iconName = focused ?
-                            settingIcon
+                            settingactive
                             : settingIcon
                     }
                     return <Image source={iconName} style={{ width: 20, height: 20 }}
@@ -75,7 +84,7 @@ export default function TabNavigation() {
             <Tab.Screen name="Home" component={Homescreenstack} options={navOptionHandler} />
             <Tab.Screen name="Notes" component={Homescreenstack} options={navOptionHandler} />
             <Tab.Screen name="Category" component={Categoryscreenstack} options={navOptionHandler} />
-            <Tab.Screen name="Heart" component={Homescreenstack} options={navOptionHandler} />
+            <Tab.Screen name="Heart" component={Favouritescreenstack} options={navOptionHandler} />
             <Tab.Screen name="Setting" component={Homescreenstack} options={navOptionHandler} />
         </Tab.Navigator>
     );

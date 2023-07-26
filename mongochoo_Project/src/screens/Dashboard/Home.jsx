@@ -11,40 +11,60 @@ import ProductBox from '../../components/ProductBox';
 import img from '../../assests/icons/cleaning.png';
 import SearchInput from '../../components/Input/SearchInput';
 import {useEffect, useState} from 'react';
+import {FontFamily} from '../../assests/Constants/FontFamily';
+import {GetService, PostFavouriteService} from '../../Api';
+import {useGetServiceFilterQuery} from '../../Store/ApiSlice';
+import {useSelector} from 'react-redux';
 
 const HomeScreen = ({navigation}) => {
   const [name, setName] = useState();
+  const [data, setData] = useState([]);
+  const [filter, setFilter] = useState('Recommended');
+  const [neardata, setNeardata] = useState([]);
 
   const logout = async () => {
     await AsyncStorage.setItem('login', 'false');
     navigation.navigate('Signin');
-    // await asyncs
   };
   const getData = async () => {
     setName(await AsyncStorage.getItem('name'));
+    GetService(filter)
+      .then(res => {
+        setData(res?.data?.data);
+      })
+      .catch(e => console.log(e));
+  };
+  const getDatawithlocation = async () => {
+    GetService('Kasulu')
+      .then(res => {
+        setNeardata(res?.data?.data);
+      })
+      .catch(e => console.log(e));
   };
   useEffect(() => {
     getData();
-  }, []);
+    getDatawithlocation();
+  }, [filter]);
 
+ 
   return (
     <>
       <SafeAreaView
         style={{
           flex: 1,
-          padding: '3%',
-          paddingHorizontal: '5%',
           alignItems: 'center',
         }}>
         <ScrollView
           style={{
             width: '100%',
-          }}>
+          }}
+          showsVerticalScrollIndicator={false}>
           <View
             style={{
               width: '100%',
               alignItems: 'center',
               marginBottom: 20,
+              paddingHorizontal: '2%',
             }}>
             <View style={styles.head_screen}>
               <View
@@ -64,8 +84,8 @@ const HomeScreen = ({navigation}) => {
                     <Image
                       source={photo}
                       style={{
-                        height: 40,
-                        width: 40,
+                        height: 50,
+                        width: 50,
                         //   objectFit: 'contain',
                       }}
                     />
@@ -74,29 +94,27 @@ const HomeScreen = ({navigation}) => {
                     <Text style={styles.head_name} onPress={logout}>
                       {name}
                     </Text>
-                    <Text style={styles.head_job}>CEO at StarLink</Text>
+                    <Text style={styles.head_job}>C.E.O at StarLink</Text>
                   </View>
                 </View>
                 <View>
                   <Image
                     source={notify}
                     style={{
-                      width: 40,
+                      width: 30,
                       objectFit: 'contain',
                     }}
                   />
                 </View>
               </View>
               <View>
-                <Text style={{...styles.head_job, paddingLeft: 15}}>
-                  Location
-                </Text>
+                <Text style={{...styles.head_job}}>Location</Text>
                 <View
                   style={{
                     flexDirection: 'row',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    margin: 5,
+                    // margin: 5,
                   }}>
                   <View
                     style={{
@@ -108,13 +126,19 @@ const HomeScreen = ({navigation}) => {
                       <Image
                         source={location}
                         style={{
-                          height: 30,
-                          width: 30,
+                          height: 25,
+                          width: 25,
                           //   objectFit: 'contain',
                         }}
                       />
                     </View>
-                    <Text style={styles.head_name}>
+                    <Text
+                      style={{
+                        ...styles.head_name,
+                        ...FontFamily.Medium,
+                        fontSize: 17,
+                        marginLeft: 5,
+                      }}>
                       Dar es salaam, Tanzania
                     </Text>
                   </View>
@@ -122,7 +146,7 @@ const HomeScreen = ({navigation}) => {
                     <Image
                       source={gps}
                       style={{
-                        width: 40,
+                        width: 30,
                         objectFit: 'contain',
                       }}
                     />
@@ -132,16 +156,15 @@ const HomeScreen = ({navigation}) => {
               <SearchInput />
             </View>
 
-            <View style={{height: 100, marginTop: 5}}>
-              <Categories />
-            </View>
+            {/* <View style={{marginTop: 5}}> */}
+            <Categories setFilter={setFilter} />
+            {/* </View> */}
 
             <View style={styles.head_screen}>
-              <ScrollView style={{flex: 1}} horizontal={true}>
-                <ProductBox navigation={navigation} />
-                <ProductBox navigation={navigation} />
-                <ProductBox navigation={navigation} />
-                <ProductBox navigation={navigation} />
+              <ScrollView horizontal={true}>
+                {data?.map((i, index) => (
+                  <ProductBox navigation={navigation} key={index} data={i} />
+                ))}
               </ScrollView>
             </View>
 
@@ -154,34 +177,34 @@ const HomeScreen = ({navigation}) => {
                   marginBottom: 20,
                   paddingHorizontal: '6%',
                 }}>
-                <Text style={{color: '#000', fontSize: 16}}>Near you</Text>
-                <Text style={{color: '#C4C4C4', fontSize: 16}}>View all</Text>
+                <Text
+                  style={{color: '#000', fontSize: 20, ...FontFamily.SemiBold}}>
+                  Near you
+                </Text>
+                <Text
+                  style={{
+                    color: '#C4C4C4',
+                    fontSize: 17,
+                    ...FontFamily.Medium,
+                  }}>
+                  View all
+                </Text>
               </View>
-              <ScrollView style={{flex: 1}} horizontal={true}>
-                <View style={{marginHorizontal: 10}}>
-                  <Image
-                    source={img}
-                    style={{
-                      width: 200,
-                      // objectFit: 'covwe ',
-                      height: 200,
-                      borderTopLeftRadius: 50,
-                      borderTopRightRadius: 50,
-                    }}
-                  />
-                </View>
-                <View style={{marginHorizontal: 10}}>
-                  <Image
-                    source={img}
-                    style={{
-                      width: 200,
-                      // objectFit: 'covwe ',
-                      height: 200,
-                      borderTopLeftRadius: 50,
-                      borderTopRightRadius: 50,
-                    }}
-                  />
-                </View>
+              <ScrollView horizontal={true}>
+                {neardata?.map(i => (
+                  <View style={{marginHorizontal: 10, height: 210}} key={i}>
+                    <Image
+                      source={img}
+                      style={{
+                        width: 200,
+                        height: 200,
+                        borderTopLeftRadius: 50,
+                        borderTopRightRadius: 50,
+                        objectFit: 'contain',
+                      }}
+                    />
+                  </View>
+                ))}
               </ScrollView>
             </View>
           </View>
@@ -201,10 +224,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 500,
     color: '#000',
+    ...FontFamily.SemiBold,
   },
   head_job: {
     fontSize: 15,
-    fontWeight: 300,
+    fontWeight: 400,
     color: '#7d7d7d',
+    ...FontFamily.Medium,
   },
 });

@@ -14,6 +14,7 @@ import ITicon from '../../assests/icons/IT-icon.png';
 import retailicon from '../../assests/icons/retail-icon.png';
 
 import {useState} from 'react';
+import {FontFamily} from '../../assests/Constants/FontFamily';
 
 const Category = ({navigation}) => {
   const [currentScreen, setCurrentScreen] = useState(0);
@@ -29,7 +30,8 @@ const Category = ({navigation}) => {
       <ScrollView
         style={{
           width: '100%',
-        }}>
+        }}
+        showsVerticalScrollIndicator={false}>
         <View
           style={{
             width: '100%',
@@ -58,7 +60,7 @@ const Category = ({navigation}) => {
                 <Image
                   source={notify}
                   style={{
-                    width: 30,
+                    width: 25,
                     objectFit: 'contain',
                   }}
                 />
@@ -81,7 +83,12 @@ const Category = ({navigation}) => {
                   />
                 </View>
                 <Text
-                  style={{color: '#000', fontSize: 18, textAlign: 'center'}}>
+                  style={{
+                    color: '#000',
+                    fontSize: 18,
+                    textAlign: 'center',
+                    ...FontFamily.Medium,
+                  }}>
                   Logistic{' '}
                 </Text>
               </View>
@@ -207,6 +214,9 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 44,
     color: '#000',
+    ...FontFamily.SemiBold,
+    fontWeight: 'normal',
+    marginBottom: 10,
   },
   category_row: {
     display: 'flex',

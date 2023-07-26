@@ -11,13 +11,26 @@ import location from '../assests/icons/location.png';
 import notify from '../assests/icons/notification.png';
 import heart from '../assests/icons/heart.png';
 import photo from '../assests/icons/photo.png';
+import CustomRatingBar from './CustomRatingBar';
+import {FontFamily} from '../assests/Constants/FontFamily';
+import {PostFavouriteService} from '../Api';
 
-const ProductBox = ({navigation}) => {
+const ProductBox = ({navigation, data}) => {
+  const AddFavourite = (service_id, is_favorite) => {
+    PostFavouriteService({
+      service_id: service_id,
+      is_favorite: is_favorite,
+    })
+      .then(res => console.log(res))
+      .catch(e => console.log(e));
+  };
   return (
     <TouchableOpacity
       style={styles.box_main}
       onPress={() => {
-        navigation.navigate('Productdetails');
+        navigation.navigate('Productdetails', {
+          id: data?.id,
+        });
       }}>
       <View>
         <Image
@@ -56,21 +69,27 @@ const ProductBox = ({navigation}) => {
               />
             </View>
             <View style={{paddingLeft: 10}}>
-              <Text style={styles.head_name}>Jackson Heche</Text>
-              <Text style={styles.head_job}>CEO at StarLink</Text>
+              <Text style={styles.head_name}>
+                {data?.user?.first_name + ' ' + data?.user?.last_name}
+              </Text>
+              <Text style={styles.head_job}>{data?.experience}</Text>
             </View>
           </View>
-          <View>
+          <TouchableOpacity
+            onPress={() =>
+              AddFavourite(data?.services_images[0]?.service_id, 1)
+            }>
             <Image
               source={heart}
               style={{
-                width: 40,
+                width: 25,
                 objectFit: 'contain',
               }}
             />
-          </View>
+          </TouchableOpacity>
         </View>
-        <Text style={styles.heading}>Cleaning Serving</Text>
+        <Text style={styles.heading}>{data?.name}</Text>
+        <CustomRatingBar rating={data?.rating} />
       </View>
     </TouchableOpacity>
   );
@@ -87,11 +106,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 500,
     color: '#393939',
+    ...FontFamily.SemiBold,
   },
   head_job: {
     fontSize: 12,
     fontWeight: 300,
     color: '#7d7d7d',
+    ...FontFamily.Medium,
   },
   box_main: {
     height: 350,
@@ -100,11 +121,13 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     borderColor: '#fff',
     borderWidth: 2,
-    marginHorizontal: 10,
+    marginHorizontal: 5,
   },
   heading: {
     fontSize: 16,
     color: '#000',
     fontWeight: 500,
+    marginBottom: 5,
+    ...FontFamily.SemiBold,
   },
 });

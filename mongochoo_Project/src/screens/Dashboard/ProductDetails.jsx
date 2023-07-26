@@ -1,4 +1,11 @@
-import {Image, ScrollView, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import notify from '../../assests/icons/notification.png';
 import location from '../../assests/icons/location-white.png';
 import heart from '../../assests/icons/heart-white.png';
@@ -10,19 +17,24 @@ import user from '../../assests/icons/user.png';
 import ignoreIcon from '../../assests/icons/ignore-icon.png';
 import messageIcon from '../../assests/icons/message-icon.png';
 import offerIcon from '../../assests/icons/offer-icon.png';
-
-const ProductDetails = ({navigation}) => {
+import {FontFamily} from '../../assests/Constants/FontFamily';
+import CustomRatingBar from '../../components/CustomRatingBar';
+import {GetSingleService} from '../../Api';
+import {useState, useEffect} from 'react';
+const ProductDetails = ({navigation, route}) => {
+  const [data, setData] = useState([]);
+  const {id} = route.params;
   const product_details = [
     {
-      name: 'Man',
+      name: data?.gender,
       icon: user,
     },
     {
-      name: '4 Years',
+      name: data?.experience,
       icon: user,
     },
     {
-      name: 'Individual',
+      name: data?.service_type,
       icon: user,
     },
     {
@@ -45,13 +57,23 @@ const ProductDetails = ({navigation}) => {
       time: '4 Hours/Day',
     },
   ];
-
+  const getData = async () => {
+    GetSingleService(id)
+      .then(res => {
+        console.log(res?.data?.data?.plans_and_packages);
+        setData(res?.data?.data);
+      })
+      .catch(e => console.log(e));
+  };
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <SafeAreaView
       style={{
         flex: 1,
-        padding: '3%',
-        paddingHorizontal: '5%',
+        // padding: '3%',
+        // paddingHorizontal: '5%',
         alignItems: 'center',
       }}>
       <ScrollView
@@ -63,6 +85,7 @@ const ProductDetails = ({navigation}) => {
             width: '100%',
             alignItems: 'center',
             marginBottom: 20,
+            paddingHorizontal: '3%',
           }}>
           <View style={styles.head_screen}>
             <View
@@ -73,14 +96,13 @@ const ProductDetails = ({navigation}) => {
                 alignItems: 'center',
                 width: '100%',
               }}>
-              <TouchableOpacity onPress={()=>navigation.goBack()} >
+              <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Image
                   source={arrow}
                   style={{
                     width: 30,
                     objectFit: 'contain',
                   }}
-                
                 />
               </TouchableOpacity>
               <View>
@@ -98,7 +120,7 @@ const ProductDetails = ({navigation}) => {
             <Image
               source={img}
               style={{
-                height: 380,
+                height: 370,
                 objectFit: 'contain',
                 positon: 'absolute',
               }}
@@ -108,21 +130,35 @@ const ProductDetails = ({navigation}) => {
                 <Image
                   source={location}
                   style={{
-                    width: 30,
+                    width: 20,
                     objectFit: 'contain',
                     marginRight: 5,
                   }}
                 />
                 <View>
-                  <Text>Dar es salaam, Tanzania</Text>
-                  <Text>2 hours ago</Text>
+                  <Text
+                    style={{
+                      color: '#fff',
+                      fontSize: 14,
+                      ...FontFamily.SemiBold,
+                    }}>
+                    {data?.address}, {data?.city}
+                  </Text>
+                  <Text
+                    style={{
+                      color: '#fff',
+                      fontSize: 15,
+                      ...FontFamily.SemiBold,
+                    }}>
+                    2 hours ago
+                  </Text>
                 </View>
               </View>
               <View>
                 <Image
                   source={heart}
                   style={{
-                    width: 40,
+                    width: 60,
                     objectFit: 'contain',
                   }}
                 />
@@ -141,24 +177,55 @@ const ProductDetails = ({navigation}) => {
                   }}
                 />
                 <View>
-                  <Text style={{fontSize: 18, color: '#393939'}}>
-                    James Amos
+                  <Text
+                    style={{
+                      fontSize: 19,
+                      color: '#393939',
+                      ...FontFamily.SemiBold,
+                      fontWeight: 500,
+                    }}>
+                    {data?.user?.first_name + ' ' + data?.user?.last_name}
                   </Text>
-                  <Text style={{fontSize: 18, color: '#A7A7A7'}}>Cleaner</Text>
+                  <Text
+                    style={{
+                      fontSize: 19,
+                      color: '#A7A7A7',
+                      ...FontFamily.Medium,
+                      fontWeight: 300,
+                    }}>
+                    Cleaner
+                  </Text>
                 </View>
               </View>
             </View>
             <View>
-              <Text style={{color: '#399CDE', fontSize: 18}}>5.0000Tzs</Text>
+              <Text
+                style={{
+                  color: '#399CDE',
+                  fontSize: 18,
+                  ...FontFamily.SemiBold,
+                }}>
+                {`${data?.service_price}Tzs`}
+              </Text>
+              <CustomRatingBar />
             </View>
           </View>
           <View style={styles.product_description}>
-            <Text style={{color: '#000', fontSize: 25}}>Cleaning Service</Text>
+            <Text
+              style={{
+                color: '#000',
+                fontSize: 25,
+                fontWeight: 'normal',
+                ...FontFamily.SemiBold,
+              }}>
+              {data?.name}
+            </Text>
             <View
               style={{
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'space-between',
+                flexWrap: 'wrap',
               }}>
               {product_details.map((item, index) => (
                 <View
@@ -171,12 +238,18 @@ const ProductDetails = ({navigation}) => {
                   <Image
                     source={item.icon}
                     style={{
-                      width: 20,
+                      width: 15,
                       objectFit: 'contain',
                       marginRight: 5,
                     }}
                   />
-                  <Text style={{fontSize: 14, color: '#A7A7A7'}}>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      color: '#A7A7A7',
+                      fontWeight: 300,
+                      ...FontFamily.Medium,
+                    }}>
                     {item.name}
                   </Text>
                 </View>
@@ -186,10 +259,10 @@ const ProductDetails = ({navigation}) => {
               style={{
                 display: 'flex',
                 flexDirection: 'row',
-                justifyContent: 'space-between',
+                justifyContent: 'center',
                 marginTop: 20,
               }}>
-              {product_amount.map((item, index) => (
+              {data?.plans_and_packages?.map((item, index) => (
                 <View
                   style={{
                     backgroundColor: '#000',
@@ -201,13 +274,19 @@ const ProductDetails = ({navigation}) => {
                   <Text
                     style={{
                       fontSize: 15,
-                      color: '#A7A7A7',
+                      color: '#fff',
                       textAlign: 'center',
+                      ...FontFamily.Medium,
                     }}>
-                    {item.amount}
+                    {item.plan_amount}
                   </Text>
-                  <Text style={{fontSize: 13, color: '#A7A7A7'}}>
-                    {item.time}
+                  <Text
+                    style={{
+                      fontSize: 13,
+                      color: '#A7A7A7',
+                      ...FontFamily.Medium,
+                    }}>
+                    {item.plan_duration}
                   </Text>
                 </View>
               ))}
@@ -224,7 +303,13 @@ const ProductDetails = ({navigation}) => {
                   }}
                 />
               </View>
-              <Text style={{color: '#6B6B6B', fontSize: 13, fontWeight: 300}}>
+              <Text
+                style={{
+                  color: '#6B6B6B',
+                  fontSize: 13,
+                  fontWeight: 300,
+                  ...FontFamily.Medium,
+                }}>
                 Ignore
               </Text>
             </View>
@@ -238,7 +323,13 @@ const ProductDetails = ({navigation}) => {
                   }}
                 />
               </View>
-              <Text style={{color: '#6B6B6B', fontSize: 13, fontWeight: 300}}>
+              <Text
+                style={{
+                  color: '#6B6B6B',
+                  fontSize: 13,
+                  fontWeight: 300,
+                  ...FontFamily.Medium,
+                }}>
                 Offer
               </Text>
             </View>
@@ -252,7 +343,13 @@ const ProductDetails = ({navigation}) => {
                   }}
                 />
               </View>
-              <Text style={{color: '#6B6B6B', fontSize: 13, fontWeight: 300}}>
+              <Text
+                style={{
+                  color: '#6B6B6B',
+                  fontSize: 13,
+                  fontWeight: 300,
+                  ...FontFamily.Medium,
+                }}>
                 Message
               </Text>
             </View>
@@ -280,10 +377,10 @@ const styles = StyleSheet.create({
   },
   overlayView: {
     position: 'absolute',
-    bottom: 20,
+    bottom: 1,
     alignSelf: 'center',
     // backgroundColor: 'rgba(0, 0, 0, 0.6)',
-    paddingVertical: 10,
+    // paddingVertical: 10,
     paddingHorizontal: 20,
     display: 'flex',
     flexDirection: 'row',
@@ -301,7 +398,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   product_seller_view: {
-    width: '85%',
+    width: '90%',
     // backgroundColor: 'red',
     // height: 300,
     display: 'flex',
@@ -310,7 +407,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   product_description: {
-    width: '85%',
+    width: '90%',
     // height: 300,
   },
   description_button: {

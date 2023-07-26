@@ -8,14 +8,12 @@ import {
   TouchableOpacity,
   ScrollView,
   PermissionsAndroid,
+  Linking,
+  Alert,
 } from 'react-native';
-import identifyIcon from '../../assests/icons/identifyicon.png';
-import UploadInput from '../../components/Input/uploadInput';
 import SimpleButton from '../../components/Button/Button';
 import locationIcon from '../../assests/icons/locationIcon.png';
-import location from '../../assests/icons/location.png';
 import location1 from '../../assests/icons/location1.png';
-import CheckBoxIinpur from '../../components/Input/CheckBoxIinpur';
 import arrow from '../../assests/icons/arrow-left.png';
 import {useState} from 'react';
 import CheckBox from '@react-native-community/checkbox';
@@ -36,6 +34,24 @@ export default function LocationAccess({navigation}) {
     AsyncStorage.setItem('login', 'true');
     navigation.navigate('Tabbar');
     setLoader(false);
+  };
+  const showLocationPermissionDeniedAlert = () => {
+    Alert.alert(
+      'Location Permission Denied',
+      'Please enable location permission in your device settings to use this feature.',
+      [
+        {
+          text: 'Open Settings',
+          onPress: () => {
+            Linking.openSettings();
+          },
+        },
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+      ],
+    );
   };
   return (
     <>
@@ -75,6 +91,50 @@ export default function LocationAccess({navigation}) {
                   backgroundColor: focus ? '#000' : '#fff',
                 }}
                 onPress={() => {
+                  PermissionsAndroid.request(
+                    PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+                  )
+                    .then(granted => {
+                      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                        // Permission granted, call getCurrentPosition()
+                        Geolocation.getCurrentPosition(
+                          position => {
+                            const {latitude, longitude,} = position.coords;
+                            console.log('Latitude:', latitude);
+                            console.log('Longitude:', longitude);
+                          },
+                          error => {
+                            console.log('Error:', error.message);
+                          },
+                          {
+                            enableHighAccuracy: true,
+                            timeout: 15000,
+                            maximumAge: 10000,
+                          },
+                        );
+                      } else if (
+                        granted === PermissionsAndroid.RESULTS.DENIED
+                      ) {
+                        // Permission denied
+                        console.log('Location permission denied');
+                        showLocationPermissionDeniedAlert();
+                      } else if (
+                        granted === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN
+                      ) {
+                        // Permission denied with never ask again
+                        console.log(
+                          'Location permission denied with never ask again',
+                        );
+                        showLocationPermissionDeniedAlert();
+                      }
+                    })
+                    .catch(error => {
+                      console.log(
+                        'Error requesting location permission:',
+                        error,
+                      );
+                    });
+
                   // Geolocation.getCurrentPosition(info => console.log(info));
                   setFocus(!focus);
                 }}>

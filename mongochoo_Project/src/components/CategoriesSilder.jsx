@@ -7,39 +7,42 @@ import {
 } from 'react-native';
 import {useState} from 'react';
 import {FontFamily} from '../assests/Constants/FontFamily';
+import {useDispatch} from 'react-redux';
+import {AddFilter} from '../Store/Store';
 
-const Categories = () => {
-  const category = ['Recommended', 'Trending', 'Most Viewd', 'Trending'];
+const Categories = ({setFilter}) => {
+  const category = ['Recommended', 'Trending', 'MostViewed', 'Trending'];
   const [select, setSelect] = useState(0);
+  const dispatch = useDispatch();
   return (
-    <View>
-      <ScrollView
-        style={{
-          flex: 1,
-        }}
-        horizontal={true}>
-        {category.map((i, index) => (
-          <View style={{width: 200, marginHorizontal: 10}} key={index}>
-            <TouchableOpacity
+    // <View>
+    <ScrollView horizontal={true} style={{width: '90%'}}>
+      {category.map((i, index) => (
+        <View style={{width: 150, height: 60, marginBottom: '3%'}} key={index}>
+          <TouchableOpacity
+            style={{
+              ...styles.ButtonContainer,
+              backgroundColor: index == select ? '#000' : 'transparent',
+            }}
+            onPress={() => {
+              setSelect(index);
+              dispatch(AddFilter({filter: i}));
+              setFilter(i);
+            }}
+            //   disabled={disabled}
+          >
+            <Text
               style={{
-                ...styles.ButtonContainer,
-                backgroundColor: index == select ? '#000' : 'transparent',
-              }}
-              onPress={() => setSelect(index)}
-              //   disabled={disabled}
-            >
-              <Text
-                style={{
-                  ...styles.ButtonText,
-                  color: index == select ? '#fff' : '#000',
-                }}>
-                {i}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        ))}
-      </ScrollView>
-    </View>
+                ...styles.ButtonText,
+                color: index == select ? '#fff' : '#000',
+              }}>
+              {i}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      ))}
+    </ScrollView>
+    // </View>
   );
 };
 export default Categories;
