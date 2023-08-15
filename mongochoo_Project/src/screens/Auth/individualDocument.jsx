@@ -47,7 +47,6 @@ export default function IndividualIdentify({navigation}) {
       formData.append('national_id', filedata?.national_id);
       UploadKYC(formData)
         .then(res => {
-          console.log(res);
           navigation.navigate('account');
         })
         .catch(e => {

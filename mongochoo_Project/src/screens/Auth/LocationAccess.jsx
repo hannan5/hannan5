@@ -20,15 +20,39 @@ import CheckBox from '@react-native-community/checkbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loader from '../../components/Loader/loader';
 import Geolocation from '@react-native-community/geolocation';
+import axios from 'axios';
 
 export default function LocationAccess({navigation}) {
   const [focus, setFocus] = useState(false);
   const [location, setLocation] = useState(null);
   const [loader, setLoader] = useState(false);
+  // AIzaSyCBcOKzXQmhX02c_71QkGjG3zXbmU3-n-A
+  const getAddressFromCoordinates = (latitude, longitude) => {
+    const apiKey = 'AIzaSyCBcOKzXQmhX02c_71QkGjG3zXbmU3-n-A';
+    const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`;
 
-  // useEffect(() => {
-  //   Geolocation.getCurrentPosition(info => console.log(info));
-  // }, []);
+    axios
+      .get(apiUrl)
+      .then(async response => {
+        const addressComponents = response.data.results[0].address_components;
+        let city, country;
+
+        for (let component of addressComponents) {
+          if (component.types.includes('locality')) {
+            city = component.long_name;
+            // console.log(city);
+          } else if (component.types.includes('country')) {
+            country = component.long_name;
+          }
+        }
+        await AsyncStorage.setItem('city', city);
+        await AsyncStorage.setItem('country', country);
+      })
+      .catch(error => {
+        console.log('Error fetching address:', error.message);
+      });
+  };
+
   const submitHandler = async () => {
     setLoader(true);
     AsyncStorage.setItem('login', 'true');
@@ -99,9 +123,8 @@ export default function LocationAccess({navigation}) {
                         // Permission granted, call getCurrentPosition()
                         Geolocation.getCurrentPosition(
                           position => {
-                            const {latitude, longitude,} = position.coords;
-                            console.log('Latitude:', latitude);
-                            console.log('Longitude:', longitude);
+                            const {latitude, longitude} = position.coords;
+                            getAddressFromCoordinates(latitude, longitude);
                           },
                           error => {
                             console.log('Error:', error.message);

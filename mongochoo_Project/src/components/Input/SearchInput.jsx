@@ -3,7 +3,7 @@ import {FontFamily} from '../../assests/Constants/FontFamily';
 import searchicon from '../../assests/icons/search-normal.png';
 import serviceicon from '../../assests/icons/serviceIcon.png';
 
-const SearchInput = () => {
+const SearchInput = ({setFilter}) => {
   return (
     <>
       <View
@@ -23,6 +23,7 @@ const SearchInput = () => {
             style={{...styles.inputStyle}}
             placeholder={'Search'}
             placeholderTextColor="#BCBCBC"
+            onChangeText={newText => setFilter(newText)}
           />
         </View>
         <Image source={serviceicon} style={{width: 35, objectFit: 'contain'}} />

@@ -6,24 +6,40 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import img from '../assests/icons/cleaning.png';
-import location from '../assests/icons/location.png';
-import notify from '../assests/icons/notification.png';
 import heart from '../assests/icons/heart.png';
 import photo from '../assests/icons/photo.png';
 import CustomRatingBar from './CustomRatingBar';
 import {FontFamily} from '../assests/Constants/FontFamily';
 import {PostFavouriteService} from '../Api';
+import {useState, useEffect} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import heart_black from '../assests/icons/black-heart.png';
 
-const ProductBox = ({navigation, data}) => {
+const ProductBox = ({navigation, data, userId}) => {
+  const [images, setImages] = useState(
+    JSON.parse(data?.services_images[0]?.images),
+  );
+  const [favourite, setFavourite] = useState(false);
+
+  const getFavourite = async () => {
+    const userId = await AsyncStorage.getItem('id');
+    setFavourite(
+      data?.favourite_services?.filter(i => i?.user_id == userId)[0]
+        ?.is_favorite,
+    );
+  };
   const AddFavourite = (service_id, is_favorite) => {
     PostFavouriteService({
       service_id: service_id,
       is_favorite: is_favorite,
     })
-      .then(res => console.log(res))
+      .then(res => console.log())
       .catch(e => console.log(e));
   };
+  useEffect(() => {
+    getFavourite();
+  }, []);
+
   return (
     <TouchableOpacity
       style={styles.box_main}
@@ -34,7 +50,9 @@ const ProductBox = ({navigation, data}) => {
       }}>
       <View>
         <Image
-          source={img}
+          source={{
+            uri: `http://admin.mchongoo.com/storage/${images[0]}`,
+          }}
           style={{
             width: '100%',
             // objectFit: 'covwe ',
@@ -76,11 +94,13 @@ const ProductBox = ({navigation, data}) => {
             </View>
           </View>
           <TouchableOpacity
-            onPress={() =>
-              AddFavourite(data?.services_images[0]?.service_id, 1)
-            }>
+            onPress={() => {
+              favourite
+                ? AddFavourite(data?.services_images[0]?.service_id, 0)
+                : AddFavourite(data?.services_images[0]?.service_id, 1);
+            }}>
             <Image
-              source={heart}
+              source={favourite ? heart_black : heart}
               style={{
                 width: 25,
                 objectFit: 'contain',

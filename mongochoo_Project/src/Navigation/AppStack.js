@@ -3,6 +3,9 @@ import HomeScreen from "../screens/Dashboard/Home"
 import ProductDetails from "../screens/Dashboard/ProductDetails"
 import Category from "../screens/Dashboard/Category"
 import FavouriteScreen from "../screens/Dashboard/Favourite"
+import OrderScreen from "../screens/Dashboard/Order"
+import Cart from "../screens/Dashboard/Cart"
+import PaymentScreen from "../screens/Dashboard/Payment"
 
 const Homestack = createNativeStackNavigator()
 const CategoryStack = createNativeStackNavigator()
@@ -17,9 +20,12 @@ const navOptionHandler = () => (
 export const Homescreenstack = () => {
     return (
         <>
-            <Homestack.Navigator initialRouteName='Homescreen'>
+            <Homestack.Navigator initialRouteName='Order'>
                 <Homestack.Screen name="Homescreen" component={HomeScreen} options={navOptionHandler} />
                 <Homestack.Screen name="Productdetails" component={ProductDetails} options={navOptionHandler} />
+                <Homestack.Screen name="Order" component={OrderScreen} options={navOptionHandler} />
+                <Homestack.Screen name="Cart" component={Cart} options={navOptionHandler} />
+                <Homestack.Screen name="Pay" component={PaymentScreen} options={navOptionHandler} />
             </Homestack.Navigator>
         </>
     )

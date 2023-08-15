@@ -39,7 +39,6 @@ export default function AccountType({navigation}) {
     onSubmit: async (values, action) => {
       setLoader(true);
       const email = await AsyncStorage.getItem('Verify');
-      console.log(values);
       let body = {
         ...values,
         email: email,

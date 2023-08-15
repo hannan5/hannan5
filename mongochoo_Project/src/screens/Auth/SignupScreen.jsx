@@ -317,11 +317,9 @@ const styles = StyleSheet.create({
   },
   checkbox: {
     width: 25,
-    // borderColor: '#000',
     borderWidth: 2,
     color: '#0000',
     borderRadius: 7,
-    // backgroundColor: '#000',
   },
   errorText: {
     color: 'red',

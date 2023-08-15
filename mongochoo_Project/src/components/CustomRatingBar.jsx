@@ -4,10 +4,8 @@ import {StyleSheet, View, TouchableOpacity, Image, Text} from 'react-native';
 import {useState} from 'react';
 import {FontFamily} from '../assests/Constants/FontFamily';
 const CustomRatingBar = ({rating}) => {
-  console.log(rating, 'rating');
   const [maxRating, setMaxRating] = useState([1, 2, 3, 4, 5]);
   const [defaultRating, setDefaultRating] = useState(rating);
-  //   console.log(defaultRating, 'rating');
 
   return (
     <>

@@ -60,6 +60,7 @@ const SignIn = ({navigation}) => {
           await AsyncStorage.setItem('name', res?.data?.data?.username);
           await AsyncStorage.setItem('login', 'true');
           AsyncStorage.setItem('token', res?.data?.data?.token);
+          AsyncStorage.setItem('id', res?.data?.data?.id?.toString());
           navigation.navigate('Tabbar');
         })
         .catch(e => {

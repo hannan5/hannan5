@@ -2,6 +2,8 @@ import axios from "axios"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const baseurl = `http://admin.mchongoo.com/api/`
+export const imgbaseurl = `http://admin.mchongoo.com/storage/`
+
 
 export const signup = (body) => {
     try {
@@ -48,7 +50,6 @@ export const ResendOtp = (body) => {
 }
 
 export const UploadKYC = async (formData) => {
-    console.log(formData);
     try {
         const res = await axios.post(`${baseurl}uploadKYC`, formData, {
             headers: {
@@ -86,7 +87,6 @@ export const GetInterst = async () => {
 
 export const PostInterst = async (body) => {
     const token = await AsyncStorage.getItem('token')
-    console.log({ categories: body }, token);
     try {
         let res = axios.post(`${baseurl}category`, { categories: body }, {
             headers: { Authorization: `Bearer ${token}` },
@@ -100,7 +100,6 @@ export const PostInterst = async (body) => {
 
 export const GetService = async (param) => {
     const token = await AsyncStorage.getItem('token')
-    console.log(token)
     try {
         let res = axios.get(`${baseurl}service?serviceParam=${param}`, {
             headers: { Authorization: `Bearer ${token}` },
@@ -113,6 +112,7 @@ export const GetService = async (param) => {
 
 export const GetSingleService = async (id) => {
     const token = await AsyncStorage.getItem('token')
+    // console.log(token)
     try {
         let res = axios.get(`${baseurl}single/service/${id}`, {
             headers: { Authorization: `Bearer ${token}` },
@@ -136,12 +136,24 @@ export const GetFavouriteService = async () => {
 }
 
 export const PostFavouriteService = async (body) => {
-    console.log(body)
+
     const token = await AsyncStorage.getItem('token')
     try {
         let res = axios.post(`${baseurl}favouriteService`, body, {
             headers: { Authorization: `Bearer ${token}` },
         },)
+        return res;
+    } catch (error) {
+        return error;
+    }
+}
+
+export const SearchService = async (name) => {
+    const token = await AsyncStorage.getItem('token')
+    try {
+        let res = axios.get(`${baseurl}search/service/?name=${name}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        })
         return res;
     } catch (error) {
         return error;

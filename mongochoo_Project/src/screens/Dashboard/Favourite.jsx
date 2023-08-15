@@ -9,30 +9,19 @@ import {
 } from 'react-native';
 import notify from '../../assests/icons/notification.png';
 import arrow from '../../assests/icons/arrow-left.png';
-import favourite_img from '../../assests/images/Office-Cleaning.png';
-import favourite_icon from '../../assests/images/fashion-model-in-red.png';
-import user_icon from '../../assests/icons/user-black.png';
-import heart_icon from '../../assests/icons/black-heart.png';
-import CustomRatingBar from '../../components/CustomRatingBar';
-import calander_icon from '../../assests/icons/calendar.png';
 import {FontFamily} from '../../assests/Constants/FontFamily';
 import {GetFavouriteService} from '../../Api';
 import {useState, useEffect} from 'react';
+import Favourite_box from '../../components/favouriteServicebox';
 
 const FavouriteScreen = ({navigation}) => {
-  const favourite_item = [
-    'James Jack',
-    'Anna John',
-    'James Jack',
-    'Anna John',
-    'James Jack',
-    'Anna John',
-  ];
   const [data, setData] = useState([]);
+  const [images, setImages] = useState('');
+  const [favourite, setFavourite] = useState(false);
+
   const getData = async () => {
     GetFavouriteService()
       .then(res => {
-        console.log(res?.data?.data, 'data');
         setData(res?.data?.data);
       })
       .catch(e => console.log(e));
@@ -93,121 +82,10 @@ const FavouriteScreen = ({navigation}) => {
               <Text style={styles.heading}>Favourite</Text>
             </View>
             <View style={{width: '98%'}}>
-              {data?.map((i, index) => (
-                <View style={styles.favourite_box} key={index}>
-                  <View style={{width: '45%'}}>
-                    <Image
-                      source={favourite_img}
-                      style={{width: '100%', objectFit: 'contain'}}
-                    />
-                  </View>
-                  <View style={styles.favourite_details_box}>
-                    <View style={styles.favourite_details_box_upper}>
-                      <View
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                        }}>
-                        <Image
-                          source={favourite_icon}
-                          style={{width: 30, objectFit: 'contain'}}
-                        />
-                        <View style={{marginLeft: 5}}>
-                          <Text
-                            style={{
-                              color: '#393939',
-                              fontSize: 12,
-                              fontWeight: 500,
-                              ...FontFamily.Medium,
-                            }}>
-                            {/* {i} */}
-                            {i?.user?.first_name + ' ' + i?.user?.last_name}
-                          </Text>
-                          <Text
-                            style={{
-                              color: '#A7A7A7',
-                              fontSize: 12,
-                              fontWeight: 300,
-                              ...FontFamily.Medium,
-                            }}>
-                            Cleaner
-                          </Text>
-                        </View>
-                      </View>
-                      <View>
-                        <Image
-                          source={heart_icon}
-                          style={{width: 30, objectFit: 'contain'}}
-                        />
-                      </View>
-                    </View>
-                    <Text
-                      style={{
-                        fontSize: 20,
-                        fontWeight: 500,
-                        color: '#000',
-                        ...FontFamily.Medium,
-                      }}>
-                      {i?.service?.name}
-                    </Text>
-
-                    <View style={styles.favourite_details_row}>
-                      <Image
-                        source={calander_icon}
-                        style={{width: 15, objectFit: 'contain'}}
-                      />
-                      <Text
-                        style={{
-                          fontSize: 14,
-                          fontWeight: 300,
-                          color: '#A7A7A7',
-                          marginLeft: 10,
-                          ...FontFamily.Medium,
-                        }}>
-                        {i?.service?.experience}
-                      </Text>
-                    </View>
-
-                    <View style={styles.favourite_details_row}>
-                      <Image
-                        source={user_icon}
-                        style={{width: 15, objectFit: 'contain'}}
-                      />
-                      <Text
-                        style={{
-                          fontSize: 14,
-                          fontWeight: 300,
-                          color: '#A7A7A7',
-                          marginLeft: 10,
-                          ...FontFamily.Medium,
-                        }}>
-                        {i?.service?.service_type}
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        marginTop: 10,
-                      }}>
-                      <CustomRatingBar rating={i?.service?.rating} />
-
-                      <Text
-                        style={{
-                          fontSize: 18,
-                          fontWeight: 500,
-                          color: '#399CDE',
-                          ...FontFamily.SemiBold,
-                        }}>
-                        {i?.service?.service_price + 'Tzs'}
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              ))}
+              {data?.map((i, index) => {
+                let a = JSON.parse(i?.service?.services_images[0]?.images);
+                return <Favourite_box data={i} images={a} key={index} />;
+              })}
             </View>
           </View>
         </ScrollView>

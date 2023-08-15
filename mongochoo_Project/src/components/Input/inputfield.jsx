@@ -1,4 +1,4 @@
-const {View, TextInput, StyleSheet, Image} = require('react-native');
+const {View, TextInput, StyleSheet, Image,} = require('react-native');
 import {useState} from 'react';
 import {FontFamily} from '../../assests/Constants/FontFamily';
 

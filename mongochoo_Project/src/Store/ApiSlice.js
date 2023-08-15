@@ -5,7 +5,6 @@ const baseurl = `http://admin.mchongoo.com/`
 
 export const getTokenFromLocalStorage = async () => {
     const token = await AsyncStorage.getItem('token');
-    console.log(token);
 };
 // getTokenFromLocalStorage()
 export const ServicesApi = createApi({
