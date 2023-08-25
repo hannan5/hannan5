@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {Button, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
-const ToggleButton = ({name, setSelect}) => {
+const ToggleButton = ({name, onchange}) => {
   const [toggle, setToggle] = useState(false);
   return (
     <>
@@ -13,6 +13,7 @@ const ToggleButton = ({name, setSelect}) => {
           }}
           onPress={() => {
             setToggle(true);
+            onchange(name[0]);
           }}>
           <Text
             style={{...styles.toggle_text1, color: toggle ? '#fff' : '#000'}}>
@@ -24,7 +25,10 @@ const ToggleButton = ({name, setSelect}) => {
             ...styles.toggle_btn2,
             backgroundColor: toggle ? '#E9E9E9' : '#000',
           }}
-          onPress={() => setToggle(false)}>
+          onPress={() => {
+            setToggle(false);
+            onchange(name[1]);
+          }}>
           <Text
             style={{...styles.toggle_text2, color: toggle ? '#000' : '#fff'}}>
             {name[1]}

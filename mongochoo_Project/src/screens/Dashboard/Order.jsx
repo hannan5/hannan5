@@ -22,6 +22,7 @@ import MapViewDirections from 'react-native-maps-directions';
 import Geolocation from '@react-native-community/geolocation';
 import axios from 'axios';
 import locationicon from '../../assests/icons/locationIcon.png';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 const OrderScreen = ({navigation}) => {
   const [selectedStartDate, setSelectedStartDate] = useState(null);
@@ -37,6 +38,7 @@ const OrderScreen = ({navigation}) => {
   const [showDirections, setShowDirections] = useState(false);
   const [distance, setDistance] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [toggle, setToggle] = useState('');
 
   const moveTo = async position => {
     const camera = await mapRef.current.getCamera();
@@ -46,7 +48,7 @@ const OrderScreen = ({navigation}) => {
       mapRef.current?.animateCamera(camera, {duration: 1000});
     }
   };
-
+  // console.log(toggle);
   const edgePaddingValue = 70;
 
   const edgePadding = {
@@ -207,12 +209,21 @@ const OrderScreen = ({navigation}) => {
             </View>
 
             <View style={{width: '90%', marginTop: 10}}>
-              <ToggleButton name={['Personal', 'Work']} />
+              <ToggleButton
+                name={['Personal', 'Work']}
+                onchange={e => console.log(e)}
+              />
             </View>
 
             <View style={styles.upper_row}>
               <View>
                 <Text style={styles.upper_head1}>Start Time</Text>
+                {/* <DateTimePickerModal
+                  isVisible={isDatePickerVisible}
+                  mode="datetime" // You can set this to 'time' for time-only selection
+                  onConfirm={handleConfirm}
+                  onCancel={hideDatePicker}
+                /> */}
                 <Text style={styles.upper_head2}>09:30 AM</Text>
               </View>
               <View>
@@ -222,16 +233,17 @@ const OrderScreen = ({navigation}) => {
             </View>
 
             <View style={{width: '90%', marginTop: 10}}>
-              <ToggleButton name={['3 Days', 'Location']} />
+              <ToggleButton
+                name={['3 Days', 'Location']}
+                onchange={e => setToggle(e)}
+              />
             </View>
 
             <View style={styles.upper_row}>
               <View style={styles.checkbox_view}>
                 <CheckBox
-                  //   value={false}
                   tintColors={{true: '#fff', false: '#3B3B3B'}}
                   style={styles.checkbox}
-                  // onChange ={e => console.log(e)}
                 />
                 <Text
                   style={{
@@ -259,68 +271,73 @@ const OrderScreen = ({navigation}) => {
                 </Text>
               </View>
             </View>
-
-            <View
-              style={{
-                width: '90%',
-                marginTop: 10,
-              }}>
-              <Text style={styles.schedule_head}>Schedule Order</Text>
-            </View>
-            <View
-              style={{
-                width: '100%',
-                height: 300,
-                display: 'flex',
-                alignItems: 'center',
-                marginTop: 15,
-                borderRadius: 25,
-              }}>
-              <CalendarPicker
-                onDateChange={setSelectedStartDate}
-                selectedDayStyle={{backgroundColor: '#000', color: '#fff'}}
-                selectedDayTextStyle={{color: '#fff', fontSize: 14}}
-                monthYearHeaderWrapperStyle={{textAlign: 'left'}}
-                dayLabelsWrapper={{color: 'red', ...FontFamily.Medium}}
-                monthTitleStyle={{
-                  color: '#1C1C1C',
-                  fontSize: 19,
-                }}
-                yearTitleStyle={{
-                  color: '#1C1C1C',
-                  fontSize: 19,
-                }}
-              />
-            </View>
-            <View
-              style={{
-                display: 'flex',
-                // justifyContent: 'flex-start',
-                alignItems: 'center',
-                width: '90%',
-                flexDirection: 'row',
-              }}>
-              <Image
-                source={locationicon}
-                style={{
-                  width: 25,
-                  objectFit: 'contain',
-                }}
-              />
-              <Text style={{color: '#000', fontSize: 17, ...FontFamily.Medium}}>
-                Karachi,Pakistan
-              </Text>
-            </View>
-            <View
-              style={{
-                width: '100%',
-                height: 240,
-                display: 'flex',
-                alignItems: 'center',
-                // marginTop: 10,
-                borderRadius: 25,
-              }}>
-              {/* <CalendarPicker
+            {toggle == '3 Days' ? (
+              <>
+                <View
+                  style={{
+                    width: '90%',
+                    marginTop: 10,
+                  }}>
+                  <Text style={styles.schedule_head}>Schedule Order</Text>
+                </View>
+                <View
+                  style={{
+                    width: '100%',
+                    height: 300,
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginTop: 15,
+                    borderRadius: 25,
+                  }}>
+                  <CalendarPicker
+                    onDateChange={setSelectedStartDate}
+                    selectedDayStyle={{backgroundColor: '#000', color: '#fff'}}
+                    selectedDayTextStyle={{color: '#fff', fontSize: 14}}
+                    monthYearHeaderWrapperStyle={{textAlign: 'left'}}
+                    dayLabelsWrapper={{color: 'red', ...FontFamily.Medium}}
+                    monthTitleStyle={{
+                      color: '#1C1C1C',
+                      fontSize: 19,
+                    }}
+                    yearTitleStyle={{
+                      color: '#1C1C1C',
+                      fontSize: 19,
+                    }}
+                  />
+                </View>
+              </>
+            ) : (
+              <>
+                <View
+                  style={{
+                    display: 'flex',
+                    // justifyContent: 'flex-start',
+                    alignItems: 'center',
+                    width: '90%',
+                    flexDirection: 'row',
+                  }}>
+                  <Image
+                    source={locationicon}
+                    style={{
+                      width: 25,
+                      objectFit: 'contain',
+                    }}
+                  />
+                  <Text
+                    style={{color: '#000', fontSize: 17, ...FontFamily.Medium}}>
+                    Karachi,Pakistan
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    width: '100%',
+                    height: 240,
+                    display: 'flex',
+                    alignItems: 'center',
+                    // marginTop: 10,
+                    borderRadius: 25,
+                  }}>
+                  {/* <CalendarPicker
                 onDateChange={setSelectedStartDate}
                 selectedDayStyle={{backgroundColor: '#000', color: '#fff'}}
                 selectedDayTextStyle={{color: '#fff', fontSize: 14}}
@@ -335,27 +352,29 @@ const OrderScreen = ({navigation}) => {
                   fontSize: 19,
                 }}
               /> */}
-              <MapView
-                style={{width: '90%', height: '100%', borderRadius: 15}}
-                initialRegion={{
-                  latitude: location[0],
-                  longitude: location[1],
-                  latitudeDelta: LATITUDE_DELTA,
-                  longitudeDelta: LONGITUDE_DELTA,
-                }}>
-                {origin && <Marker coordinate={origin} />}
-                {destination && <Marker coordinate={destination} />}
+                  <MapView
+                    style={{width: '90%', height: '100%', borderRadius: 15}}
+                    initialRegion={{
+                      latitude: location[0],
+                      longitude: location[1],
+                      latitudeDelta: LATITUDE_DELTA,
+                      longitudeDelta: LONGITUDE_DELTA,
+                    }}>
+                    {origin && <Marker coordinate={origin} />}
+                    {destination && <Marker coordinate={destination} />}
 
-                <MapViewDirections
-                  origin={origin}
-                  destination={destination}
-                  apikey={apiKey}
-                  strokeColor="#6644ff"
-                  strokeWidth={4}
-                  onReady={traceRouteOnReady}
-                />
-              </MapView>
-            </View>
+                    <MapViewDirections
+                      origin={origin}
+                      destination={destination}
+                      apikey={apiKey}
+                      strokeColor="#6644ff"
+                      strokeWidth={4}
+                      onReady={traceRouteOnReady}
+                    />
+                  </MapView>
+                </View>
+              </>
+            )}
             <View style={styles.upper_row}>
               <View>
                 <Text

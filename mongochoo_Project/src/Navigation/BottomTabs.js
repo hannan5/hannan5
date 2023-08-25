@@ -7,15 +7,10 @@ import noteIcon from '../assests/icons/notes.png'
 import noteactive from '../assests/icons/notes-active.png'
 import categoryIcon from '../assests/icons/category.png'
 import categoryactive from '../assests/icons/category-active.png'
-
 import heartIcon from '../assests/icons/heart.png'
 import heartactive from '../assests/icons/heart-active.png'
-
 import settingIcon from '../assests/icons/setting.png'
 import settingactive from '../assests/icons/setting-active.png'
-
-
-
 import { Image } from 'react-native'
 
 const Tab = createBottomTabNavigator();
@@ -26,11 +21,8 @@ const navOptionHandler = () => (
 )
 export default function TabNavigation() {
     return (
-
         <Tab.Navigator initialRouteName='Home'
-
             screenOptions={({ route }) => ({
-
                 unmountOnBlur: true,
                 tabBarStyle: {
                     borderTopWidth: 0,
