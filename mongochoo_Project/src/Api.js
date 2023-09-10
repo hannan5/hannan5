@@ -100,6 +100,7 @@ export const PostInterst = async (body) => {
 
 export const GetService = async (param) => {
     const token = await AsyncStorage.getItem('token')
+    console.log(token)
     try {
         let res = axios.get(`${baseurl}service?serviceParam=${param}`, {
             headers: { Authorization: `Bearer ${token}` },
@@ -190,6 +191,18 @@ export const DeleteCart = async (id) => {
     const token = await AsyncStorage.getItem('token')
     try {
         let res = axios.get(`${baseurl}delete/cart/item/${id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        })
+        return res;
+    } catch (error) {
+        return error;
+    }
+}
+
+export const getPayment = async (body) => {
+    const token = await AsyncStorage.getItem('token')
+    try {
+        let res = axios.post(`${baseurl}create/payment/url`,body, {
             headers: { Authorization: `Bearer ${token}` },
         })
         return res;

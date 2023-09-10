@@ -21,7 +21,7 @@ const navOptionHandler = () => (
 export const Homescreenstack = () => {
     return (
         <>
-            <Homestack.Navigator initialRouteName='Homescreen'>
+            <Homestack.Navigator initialRouteName='Cart'>
                 <Homestack.Screen name="Homescreen" component={HomeScreen} options={navOptionHandler} />
                 <Homestack.Screen name="Productdetails" component={ProductDetails} options={navOptionHandler} />
                 <Homestack.Screen name="Order" component={OrderScreen} options={navOptionHandler} />

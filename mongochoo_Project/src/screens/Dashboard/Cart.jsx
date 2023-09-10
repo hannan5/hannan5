@@ -1,5 +1,6 @@
 import {
   Image,
+  Linking,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -16,7 +17,7 @@ import location from '../../assests/icons/location.png';
 import calander from '../../assests/icons/calander.png';
 import SimpleButton from '../../components/Button/Button';
 import {useEffect, useState} from 'react';
-import {DeleteCart, getCart} from '../../Api';
+import {DeleteCart, getCart, getPayment} from '../../Api';
 // import {apigwClient} from 'selcom-apigw-client';
 
 const Cart = ({navigation}) => {
@@ -32,12 +33,13 @@ const Cart = ({navigation}) => {
     // var orderRespose = client.postFunc(orderPath, orderJson);
     // console.log(orderRespose);
   };
+  //c
   const getData = () => {
     getCart()
       .then(res => {
         const valuesArray = Object.values(res?.data?.data);
         setData(valuesArray);
-        console.log(valuesArray[10], valuesArray?.length);
+         console.log(valuesArray, valuesArray?.length);
       })
       .catch(e => console.log(e));
   };
@@ -56,6 +58,31 @@ const Cart = ({navigation}) => {
     getData();
   }, []);
 
+  const process = () =>{
+    const random = Math.random().toString(36).slice(2)
+    const body={
+      order_id:random,
+      buyer_email:data[0]?.serviceDetails?.user_email,
+      buyer_name:data[0]?.serviceDetails?.user_first_name + data[0]?.serviceDetails?.user_last_name,
+      buyer_phone:data[0]?.serviceDetails?.user_phone_no,
+      amount:data[data.length-1],
+      billing_phone:data[0]?.serviceDetails?.user_phone_no,
+      billing_firstname:data[0]?.serviceDetails?.user_first_name,
+      billing_lastname:data[0]?.serviceDetails?.user_last_name,
+      billing_address_1:data[0]?.serviceDetails?.address,
+      billing_city:data[0]?.serviceDetails?.city,
+      no_of_items:data?.length,
+    }
+    console.log(body)
+    // console.log(data[data.length-1])
+    // getPayment(body)
+    // .then((res)=>{
+    //   console.log(res?.data?.data[0]?.payment_gateway_url)
+    //   Linking.openURL('https://stackoverflow.com/questions/43804032/open-url-in-default-web-browser').catch(err => console.error("Couldn't load page", err));
+    // })
+    // .catch((e)=>console.log(e?.response?.data))
+
+  }
   return (
     <>
       <SafeAreaView
@@ -254,7 +281,7 @@ const Cart = ({navigation}) => {
               <SimpleButton
                 name="Proceed Payment"
                 //   onClick={() => navigation.navigate('OtpVerification')}
-                onClick={() => navigation.navigate('Pay')}
+                onClick={() => process()}
                 // disabled={!toggleCheckBox ? true : false}
               />
             </View>
