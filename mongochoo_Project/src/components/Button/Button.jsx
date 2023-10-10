@@ -17,7 +17,7 @@ export default SimpleButton;
 const styles = StyleSheet.create({
   ButtonContainer: {
     width: '100%',
-    backgroundColor: '#3BA0D1',
+    backgroundColor: '#6EBE51',
     height: 56,
     justifyContent: 'center',
     alignItems: 'center',

@@ -9,28 +9,28 @@ const ToggleButton = ({name, onchange}) => {
         <TouchableOpacity
           style={{
             ...styles.toggle_btn1,
-            backgroundColor: toggle ? '#3BA0D1' : '#E9E9E9',
+            backgroundColor: toggle ? '#5FB945' : '#E3FFD9',
           }}
           onPress={() => {
             setToggle(true);
             onchange(name[0]);
           }}>
           <Text
-            style={{...styles.toggle_text1, color: toggle ? '#fff' : '#000'}}>
+            style={{...styles.toggle_text1, color: toggle ? '#fff' : '#5FB945'}}>
             {name[0]}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{
             ...styles.toggle_btn2,
-            backgroundColor: toggle ? '#E9E9E9' : '#3BA0D1',
+            backgroundColor: toggle ? '#E3FFD9' : '#5FB945',
           }}
           onPress={() => {
             setToggle(false);
             onchange(name[1]);
           }}>
           <Text
-            style={{...styles.toggle_text2, color: toggle ? '#000' : '#fff'}}>
+            style={{...styles.toggle_text2, color: toggle ? '#5FB945' : '#fff'}}>
             {name[1]}
           </Text>
         </TouchableOpacity>
@@ -42,7 +42,7 @@ export default ToggleButton;
 
 const styles = StyleSheet.create({
   toggle_View: {
-    backgroundColor: '#E9E9E9',
+    backgroundColor: '#E3FFD9',
     width: '100%',
     display: 'flex',
     flexDirection: 'row',

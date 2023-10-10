@@ -7,7 +7,7 @@ import {
   View,
   ScrollView,
 } from 'react-native';
-import logo from '../../assests/images/small-logo.png';
+import logo from '../../assests/images/logoBg.png';
 import intro1 from '../../assests/images/intro1.png';
 import intro2 from '../../assests/images/into2.png';
 import intro3 from '../../assests/images/intro3.png';
@@ -43,7 +43,7 @@ const IntroScreen1 = ({navigation}) => {
             <View style={styles.uppersection}>
               <Image
                 source={logo}
-                style={{width: '15%', objectFit: 'contain'}}
+                style={{width: '25%', objectFit: 'contain'}}
               />
               <Text
                 style={{color: '#000', fontSize: 17, ...FontFamily.Medium}}
@@ -97,7 +97,7 @@ const IntroScreen1 = ({navigation}) => {
                   style={{
                     ...styles.sliderbtn,
                     width: '25%',
-                    backgroundColor: currentScreen == 0 ? '#DFDFDF' : '#3BA0D1',
+                    backgroundColor: currentScreen == 0 ? '#DFDFDF' : '#6EBE51',
                   }}
                   onPress={() => setCurrentScreen(1)}></TouchableOpacity>
                 <TouchableOpacity
@@ -107,7 +107,7 @@ const IntroScreen1 = ({navigation}) => {
                     backgroundColor:
                       currentScreen == 0 || currentScreen == 1
                         ? '#DFDFDF'
-                        : '#3BA0D1',
+                        : '#6EBE51',
                   }}
                   onPress={() => setCurrentScreen(1)}></TouchableOpacity>
               </View>
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   sliderbtn: {
-    backgroundColor: '#3BA0D1',
+    backgroundColor: '#6EBE51',
     height: 10,
     borderRadius: 14,
     width: '45%',

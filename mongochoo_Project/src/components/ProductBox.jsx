@@ -56,7 +56,7 @@ const ProductBox = ({navigation, data, userId}) => {
           style={{
             width: '100%',
             // objectFit: 'covwe ',
-            height: 200,
+            height: 140,
             borderTopLeftRadius: 50,
             borderTopRightRadius: 50,
           }}
@@ -67,8 +67,9 @@ const ProductBox = ({navigation, data, userId}) => {
           style={{
             justifyContent: 'space-between',
             flexDirection: 'row',
-            paddingVertical: '5%',
+            paddingVertical: '1%',
             alignItems: 'center',
+            // paddingHorizontal:'1%'
           }}>
           <View
             style={{
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
   box_details: {
     // backgroundColor: 'green',
     height: 100,
-    paddingHorizontal: '3%',
+    paddingHorizontal: '4%',
   },
   head_name: {
     fontSize: 12,
@@ -135,10 +136,10 @@ const styles = StyleSheet.create({
     ...FontFamily.Medium,
   },
   box_main: {
-    height: 350,
+    height: 260,
     backgroundColor: '#fff',
     width: 230,
-    borderRadius: 50,
+    borderRadius: 30,
     borderColor: '#fff',
     borderWidth: 2,
     marginHorizontal: 5,

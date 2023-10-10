@@ -10,8 +10,7 @@ import {FontFamily} from '../assests/Constants/FontFamily';
 import {useDispatch} from 'react-redux';
 import {AddFilter} from '../Store/Store';
 
-const Categories = ({setFilter}) => {
-  const category = ['Recommended', 'Trending', 'MostViewed', 'Trending'];
+const Categories = ({setFilter,category}) => {
   const [select, setSelect] = useState(0);
   const dispatch = useDispatch();
   return (
@@ -22,7 +21,7 @@ const Categories = ({setFilter}) => {
           <TouchableOpacity
             style={{
               ...styles.ButtonContainer,
-              backgroundColor: index == select ? '#3BA0D1' : 'transparent',
+              backgroundColor: index == select ? '#6EBE51' : 'transparent',
             }}
             onPress={() => {
               setSelect(index);

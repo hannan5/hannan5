@@ -300,7 +300,7 @@ const OrderScreen = ({navigation, route}) => {
             <View style={styles.upper_row}>
               <View style={styles.checkbox_view}>
                 <CheckBox
-                  tintColors={{true: '#000', false: '#3B3B3B'}}
+                  tintColors={{true: '#5FB945', false: '#3B3B3B'}}
                   style={styles.checkbox}
                   value={checkbox?.available}
                   onChange={() =>
@@ -318,7 +318,7 @@ const OrderScreen = ({navigation, route}) => {
               </View>
               <View style={styles.checkbox_view}>
                 <CheckBox
-                  tintColors={{true: '#000', false: '#3B3B3B'}}
+                  tintColors={{true: '#5FB945', false: '#3B3B3B'}}
                   style={styles.checkbox}
                   value={checkbox?.booking}
                   onChange={() =>
@@ -357,7 +357,7 @@ const OrderScreen = ({navigation, route}) => {
                     onDateChange={handleDateChange}
                     minDate={Date.now()}
                     customDatesStyles={selectedDates}
-                    selectedDayStyle={{backgroundColor: '#000', color: '#fff'}}
+                    selectedDayStyle={{backgroundColor: '#5FB945', color: '#fff'}}
                     selectedDayTextStyle={{color: '#fff', fontSize: 14}}
                     monthYearHeaderWrapperStyle={{textAlign: 'left'}}
                     dayLabelsWrapper={{color: 'red', ...FontFamily.Medium}}

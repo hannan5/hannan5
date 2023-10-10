@@ -157,8 +157,8 @@ export const SelectedBox = ({setFocus, focus, i, index, onClick}) => {
     <TouchableOpacity
       style={{
         ...styles.inputView,
-        borderColor: focus ? '#3BA0D1' : '#DFDFDF',
-        backgroundColor: focus ? '#3BA0D1' : '#fff',
+        borderColor: focus ? '#6EBE51' : '#DFDFDF',
+        backgroundColor: focus ? '#6EBE51' : '#fff',
       }}
       key={index}
       onPress={onClick}>

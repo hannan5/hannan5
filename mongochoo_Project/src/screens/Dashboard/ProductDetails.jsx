@@ -226,7 +226,7 @@ const ProductDetails = ({navigation, route}) => {
                 <View>
                   <Text
                     style={{
-                      color: '#399CDE',
+                      color: '#6EBE51',
                       fontSize: 18,
                       ...FontFamily.SemiBold,
                     }}>
@@ -290,7 +290,7 @@ const ProductDetails = ({navigation, route}) => {
                   {data?.plans_and_packages?.map((item, index) => (
                     <View
                       style={{
-                        backgroundColor: '#3BA0D1',
+                        backgroundColor: '#6EBE51',
                         paddingHorizontal: 15,
                         paddingVertical: 15,
                         borderRadius: 20,
@@ -320,7 +320,7 @@ const ProductDetails = ({navigation, route}) => {
               <View style={styles.description_button}>
                 <View style={{alignItems: 'center'}}>
                   <View
-                    style={{...styles.icon_view, backgroundColor: '#ABABAB'}}>
+                    style={{...styles.icon_view, backgroundColor: '#FF7B7B'}}>
                     <Image
                       source={ignoreIcon}
                       style={{
@@ -454,7 +454,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   icon_view: {
-    backgroundColor: '#000',
+    backgroundColor: '#6EBE51',
     width: 60,
     height: 60,
     display: 'flex',

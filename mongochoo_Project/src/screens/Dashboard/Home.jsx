@@ -32,11 +32,9 @@ const HomeScreen = ({navigation}) => {
   const [neardata, setNeardata] = useState([]);
   const [loader, setLoader] = useState(true);
   const [location, setLocation] = useState({city: '', country: ''});
+  const category = ['Recommended', 'Trending', 'MostViewed', 'Trending'];
 
-  const logout = async () => {
-    await AsyncStorage.setItem('login', 'false');
-    navigation.navigate('Signin');
-  };
+
   const getData = async () => {
     setLocation({
       city: await AsyncStorage.getItem('city'),
@@ -155,7 +153,7 @@ const HomeScreen = ({navigation}) => {
                       />
                     </View>
                     <View style={{paddingLeft: 10}}>
-                      <Text style={styles.head_name} onPress={logout}>
+                      <Text style={styles.head_name}>
                         {name}
                       </Text>
                       <Text style={styles.head_job}>C.E.O at StarLink</Text>
@@ -283,7 +281,7 @@ const HomeScreen = ({navigation}) => {
               </View>
 
               {/* <View style={{marginTop: 5}}> */}
-              <Categories setFilter={setFilter} />
+              <Categories setFilter={setFilter} category={category}/>
               {/* </View> */}
 
               <View style={styles.head_screen}>

@@ -7,7 +7,7 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import logo from '../../assests/images/small-logo.png';
+import logo from '../../assests/images/logoBg.png';
 import otpIcon from '../../assests/icons/otpicon.png';
 import CustomOTPInput from '../../components/Input/OtpInput';
 import arrow from '../../assests/icons/arrow-left.png';
@@ -98,7 +98,7 @@ const OtpVerification = ({navigation}) => {
               <Image
                 source={logo}
                 style={{
-                  width: '50%',
+                  width: '60%',
                   objectFit: 'contain',
                 }}
               />
@@ -107,7 +107,6 @@ const OtpVerification = ({navigation}) => {
                 style={{
                   objectFit: 'contain',
                   height: 220,
-                  marginTop: '10%',
                 }}
               />
               <Text

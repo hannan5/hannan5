@@ -11,8 +11,10 @@ import notify from '../../assests/icons/notification.png';
 import arrow from '../../assests/icons/arrow-left.png';
 import truck from '../../assests/icons/truck.png';
 import ITicon from '../../assests/icons/IT-icon.png';
-import retailicon from '../../assests/icons/retail-icon.png';
-
+  import retailicon from '../../assests/icons/retail-icon.png';
+  import marketingicon from '../../assests/icons/marketing-icon.png';
+  import constructionicon from '../../assests/icons/construction-icon.png';
+  import facilityicon from '../../assests/icons/facility-icon.png';
 import {useState} from 'react';
 import {FontFamily} from '../../assests/Constants/FontFamily';
 
@@ -77,7 +79,7 @@ const Category = ({navigation}) => {
                   <Image
                     source={truck}
                     style={{
-                      width: 55,
+                      width: '80%',
                       objectFit: 'contain',
                     }}
                   />
@@ -97,7 +99,7 @@ const Category = ({navigation}) => {
                   <Image
                     source={retailicon}
                     style={{
-                      width: 55,
+                      width: '80%',
                       objectFit: 'contain',
                     }}
                   />
@@ -114,7 +116,7 @@ const Category = ({navigation}) => {
                   <Image
                     source={ITicon}
                     style={{
-                      width: 55,
+                      width: '80%',
                       objectFit: 'contain',
                     }}
                   />
@@ -127,9 +129,9 @@ const Category = ({navigation}) => {
               <View style={styles.category_View}>
                 <View style={styles.category_icon_view}>
                   <Image
-                    source={retailicon}
+                    source={marketingicon}
                     style={{
-                      width: 55,
+                      width: '80%',
                       objectFit: 'contain',
                     }}
                   />
@@ -144,9 +146,9 @@ const Category = ({navigation}) => {
               <View style={styles.category_View}>
                 <View style={styles.category_icon_view}>
                   <Image
-                    source={truck}
+                    source={constructionicon}
                     style={{
-                      width: 55,
+                      width: '80%',
                       objectFit: 'contain',
                     }}
                   />
@@ -159,9 +161,9 @@ const Category = ({navigation}) => {
               <View style={styles.category_View}>
                 <View style={styles.category_icon_view}>
                   <Image
-                    source={ITicon}
+                    source={facilityicon}
                     style={{
-                      width: 55,
+                      width: '80%',
                       objectFit: 'contain',
                     }}
                   />
@@ -230,7 +232,7 @@ const styles = StyleSheet.create({
   },
   category_icon_view: {
     width: '100%',
-    backgroundColor: '#CCCCCC',
+    backgroundColor: '#E3FFD9',
     display: 'flex',
     alignItems: 'center',
     borderRadius: 35,

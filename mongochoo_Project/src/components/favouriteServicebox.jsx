@@ -2,7 +2,7 @@ import {Image, View, Text, StyleSheet} from 'react-native';
 import favourite_img from '../assests/images/Office-Cleaning.png';
 import favourite_icon from '../assests/images/fashion-model-in-red.png';
 import user_icon from '../assests/icons/user-black.png';
-import heart_icon from '../assests/icons/black-heart.png';
+import heart_icon from '../assests/icons/green_heart.png';
 import CustomRatingBar from '../components/CustomRatingBar';
 import calander_icon from '../assests/icons/calendar.png';
 import {FontFamily} from '../assests/Constants/FontFamily';
@@ -56,7 +56,7 @@ const Favourite_box = ({data, images}) => {
             <View>
               <Image
                 source={heart_icon}
-                style={{width: 30, objectFit: 'contain'}}
+                style={{width: 20, objectFit: 'contain'}}
               />
             </View>
           </View>
@@ -117,7 +117,7 @@ const Favourite_box = ({data, images}) => {
               style={{
                 fontSize: 18,
                 fontWeight: 500,
-                color: '#399CDE',
+                color: '#5FB945',
                 ...FontFamily.SemiBold,
               }}>
               {data?.service?.service_price + 'Tzs'}

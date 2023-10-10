@@ -9,7 +9,7 @@ import {
   //   CheckBox,
 } from 'react-native';
 // import {CheckBox} from '@react-native-community/checkbox ';
-import logo from '../../assests/images/small-logo.png';
+import logo from '../../assests/images/logoBg.png';
 import {InputField} from '../../components/Input/inputfield';
 import user from '../../assests/icons/user.png';
 import sms from '../../assests/icons/sms.png';
@@ -84,7 +84,7 @@ const SignIn = ({navigation}) => {
             <View style={styles.signupUpper}>
               <Image
                 source={logo}
-                style={{width: '35%', objectFit: 'contain'}}
+                style={{width: '60%', objectFit: 'contain'}}
               />
               <Text
                 style={{
@@ -92,8 +92,6 @@ const SignIn = ({navigation}) => {
                   fontSize: 38,
                   fontSize: 24,
                   lineHeight: 29,
-                  paddingVertical: 5,
-                  marginTop: 20,
                   ...FontFamily.Bold,
                 }}>
                 Sign In

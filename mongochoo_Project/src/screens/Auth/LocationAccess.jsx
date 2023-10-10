@@ -111,8 +111,8 @@ export default function LocationAccess({navigation}) {
               <TouchableOpacity
                 style={{
                   ...styles.inputcontainer,
-                  borderColor: focus ? '#3BA0D1' : '#DFDFDF',
-                  backgroundColor: focus ? '#3BA0D1' : '#fff',
+                  borderColor: focus ? '#6EBE51' : '#DFDFDF',
+                  backgroundColor: focus ? '#6EBE51' : '#fff',
                 }}
                 onPress={() => {
                   PermissionsAndroid.request(

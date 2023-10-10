@@ -1,6 +1,7 @@
 import {
   Image,
   Linking,
+  Modal,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -18,22 +19,16 @@ import calander from '../../assests/icons/calander.png';
 import SimpleButton from '../../components/Button/Button';
 import {useEffect, useState} from 'react';
 import {DeleteCart, getCart, getPayment} from '../../Api';
+import tick from '../../assests/icons/tick.png';
+import WebView from 'react-native-webview';
+import { Buffer } from 'buffer';
 // import {apigwClient} from 'selcom-apigw-client';
 
 const Cart = ({navigation}) => {
   const [data, setData] = useState([]);
-  const apikey = 'MCHONG-LK5743TH0FB20';
-  const apiSecret = 'KLB23B-7633EC-AB2E98-PU2BBA-983D18-431CBF';
-  const baseUrl = 'https://apigw.selcommobile.com';
-  var orderPath = '/v1/checkout/create-order';
-  // const client = new apigwClient(baseUrl, apikey, apiSecret);
-  // console.log(client, 'client');
-  const processPayment = () => {
-    // const orderJson = {};
-    // var orderRespose = client.postFunc(orderPath, orderJson);
-    // console.log(orderRespose);
-  };
-  //c
+  const [paymenturl,setPaymenturl] = useState("")
+  const [modalVisible, setModalVisible] = useState(false);
+  const [url,setUrl] = useState("")
   const getData = () => {
     getCart()
       .then(res => {
@@ -58,8 +53,33 @@ const Cart = ({navigation}) => {
     getData();
   }, []);
 
+  function generateRandomAlphaNumeric(length) {
+    const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
+    
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * charset.length);
+      result += charset.charAt(randomIndex);
+    }
+    
+    return result;
+  }
+  function base64Decode(encodedString) {
+    try {
+      const buffer = Buffer.from(encodedString, 'base64');
+      const decodedString = buffer.toString('utf-8');
+      return decodedString;
+      // return decodedString;
+    } catch (error) {
+      console.error('Error decoding base64:', error);
+      return null;
+    }
+  }
+
+  // Example: Generate a random alphanumeric string of length 10
+  
   const process = () =>{
-    const random = Math.random().toString(36).slice(2)
+    const random = generateRandomAlphaNumeric(12);  
     const body={
       order_id:random,
       buyer_email:data[0]?.serviceDetails?.user_email,
@@ -75,16 +95,44 @@ const Cart = ({navigation}) => {
     }
     console.log(body)
     // console.log(data[data.length-1])
-    // getPayment(body)
-    // .then((res)=>{
-    //   console.log(res?.data?.data[0]?.payment_gateway_url)
-    //   Linking.openURL('https://stackoverflow.com/questions/43804032/open-url-in-default-web-browser').catch(err => console.error("Couldn't load page", err));
-    // })
-    // .catch((e)=>console.log(e?.response?.data))
-
+    getPayment(body)
+    .then((res)=>{
+      const encoded = base64Decode(res?.data?.data?.data[0]?.payment_gateway_url)
+      // console.log(encoded,"encoded")
+      setPaymenturl(encoded)
+    })
+    .catch((e)=>console.log(e?.response?.data))
+  }
+  const failedwebView = () =>{
+    setTimeout(() => {
+      setPaymenturl("")
+      navigation.navigate('Homescreen')        
+    }, 3000);
+    // setModalVisible(true)    
   }
   return (
     <>
+                {paymenturl?
+              (
+                <WebView  source={{ uri: paymenturl }}
+                onError={(e)=>console.log(e)}
+                onNavigationStateChange={(n)=>{
+                  n?.url == "http://admin.mchongoo.com/payment/failure"
+                  ?
+                  setTimeout(() => {
+                    setPaymenturl("")
+                    // navigation.navigate('Homescreen')        
+                  }, 3000)
+                  :
+                  n?.url == "http://admin.mchongoo.com/payment/success"?
+                  failedwebView()
+:
+                  console.log("opening")
+                }}
+                />
+              )
+              :
+(
       <SafeAreaView
         style={{
           flex: 1,
@@ -133,6 +181,7 @@ const Cart = ({navigation}) => {
                 </View>
               </View>
             </View>
+    
             <View style={{minHeight: 350}}>
               {data?.map((item, index) =>
                 item?.serviceDetails ? (
@@ -159,7 +208,7 @@ const Cart = ({navigation}) => {
                         <Text style={styles.upper_head1}>
                           {item?.serviceDetails?.name}
                         </Text>
-                        <Text style={{...styles.upper_head1, color: '#399CDE'}}>
+                        <Text style={{...styles.upper_head1, color: '#5FB945'}}>
                           {item?.serviceDetails?.service_price}Tzs
                         </Text>
                       </View>
@@ -249,7 +298,7 @@ const Cart = ({navigation}) => {
                     </View>
                   </View>
                 ) : (
-                  <>{/* <Text>Hello</Text> */}</>
+                  <></>
                 ),
               )}
             </View>
@@ -280,14 +329,15 @@ const Cart = ({navigation}) => {
             <View style={{...styles.bar_view, width: '90%'}}>
               <SimpleButton
                 name="Proceed Payment"
-                //   onClick={() => navigation.navigate('OtpVerification')}
                 onClick={() => process()}
-                // disabled={!toggleCheckBox ? true : false}
               />
             </View>
+
+
           </View>
         </ScrollView>
-      </SafeAreaView>
+       </SafeAreaView>
+)}  
     </>
   );
 };
@@ -328,5 +378,70 @@ const styles = StyleSheet.create({
     color: '#161616',
     fontSize: 17,
     fontWeight: 'normal',
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // marginTop: 22,
+    backgroundColor: '#3BA0D1',
+  },
+  modalView: {
+    // margin: 20,
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    paddingVertical: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    width: '80%',
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+    color: '#232323',
+    fontSize: 23,
+    fontWeight: 'normal',
+    marginTop: 10,
+    ...FontFamily.Medium,
+  },
+  modalRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '90%',
+    marginTop: 10,
+  },
+  modal_head1: {
+    color: '#232323',
+    fontSize: 16,
+    ...FontFamily.Medium,
+  },
+  modal_head2: {
+    color: '#000',
+    fontSize: 16,
+    ...FontFamily.Medium,
   },
 });

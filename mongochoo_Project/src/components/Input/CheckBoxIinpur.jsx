@@ -33,8 +33,8 @@ export default CheckInput = ({head, subhead, icon, onBlur, onSelect}) => {
         <TouchableOpacity
           style={{
             ...styles.inputcontainer,
-            borderColor: focus == index ? '#3BA0D1' : '#DFDFDF',
-            backgroundColor: focus == index ? '#3BA0D1' : '#fff',
+            borderColor: focus == index ? '#6EBE51' : '#DFDFDF',
+            backgroundColor: focus == index ? '#6EBE51' : '#fff',
           }}
           onPress={() => {
             setFocus(index);

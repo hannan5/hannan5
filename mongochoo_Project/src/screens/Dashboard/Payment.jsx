@@ -176,15 +176,15 @@ const PaymentScreen = ({navigation}) => {
           <View style={styles.modalView}>
             <View
               style={{
-                backgroundColor: '#000',
+                // backgroundColor: '#000',
                 borderRadius: 50,
-                paddingHorizontal: 15,
-                paddingVertical: 15,
+                // paddingHorizontal: 15,
+                // paddingVertical: 15,
               }}>
               <Image
                 source={tick}
                 style={{
-                  width: 25,
+                  width: 100,
                   objectFit: 'contain',
                 }}
               />
@@ -295,7 +295,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     // marginTop: 22,
-    backgroundColor: '#3BA0D1',
+    backgroundColor: '#5FB945',
   },
   modalView: {
     // margin: 20,
