@@ -8,7 +8,7 @@ import calander_icon from '../assests/icons/calendar.png';
 import {FontFamily} from '../assests/Constants/FontFamily';
 import {useState} from 'react';
 
-const Favourite_box = ({data, images}) => {
+const FilterServiceBox = ({data, images}) => {
   return (
     <>
       <View style={styles.favourite_box}>
@@ -71,7 +71,7 @@ const Favourite_box = ({data, images}) => {
               color: '#000',
               ...FontFamily.Medium,
             }}>
-            {data?.service?.name}
+            {data?.name}
           </Text>
 
           <View style={styles.favourite_details_row}>
@@ -87,7 +87,7 @@ const Favourite_box = ({data, images}) => {
                 marginLeft: 10,
                 ...FontFamily.Medium,
               }}>
-              {data?.service?.experience}
+              {data?.experience}
             </Text>
           </View>
 
@@ -104,7 +104,7 @@ const Favourite_box = ({data, images}) => {
                 marginLeft: 10,
                 ...FontFamily.Medium,
               }}>
-              {data?.service?.service_type}
+              {data?.service_type}
             </Text>
           </View>
           <View
@@ -115,7 +115,7 @@ const Favourite_box = ({data, images}) => {
               alignItems: 'center',
               marginTop: 10,
             }}>
-            <CustomRatingBar rating={data?.service?.rating} />
+            <CustomRatingBar rating={data?.rating} />
 
             <Text
               style={{
@@ -124,7 +124,7 @@ const Favourite_box = ({data, images}) => {
                 color: '#5FB945',
                 ...FontFamily.SemiBold,
               }}>
-              {data?.service?.service_price + 'Tzs'}
+              {data?.service_price + 'Tzs'}
             </Text>
           </View>
         </View>
@@ -132,7 +132,7 @@ const Favourite_box = ({data, images}) => {
     </>
   );
 };
-export default Favourite_box;
+export default FilterServiceBox;
 
 const styles = StyleSheet.create({
   head_screen: {

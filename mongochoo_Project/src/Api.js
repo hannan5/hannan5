@@ -210,3 +210,27 @@ export const getPayment = async (body) => {
         return error;
     }
 }
+
+export const getCategory = async () => {
+    const token = await AsyncStorage.getItem('token')
+    try {
+        let res = axios.get(`${baseurl}category`, {
+            headers: { Authorization: `Bearer ${token}` },
+        })
+        return res;
+    } catch (error) {
+        return error;
+    }
+}
+
+export const getServiceByCategory = async (id) => {
+    const token = await AsyncStorage.getItem('token')
+    try {
+        let res = axios.get(`${baseurl}service/by/${id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        })
+        return res;
+    } catch (error) {
+        return error;
+    }
+}

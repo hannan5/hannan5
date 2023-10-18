@@ -15,12 +15,26 @@ import ITicon from '../../assests/icons/IT-icon.png';
   import marketingicon from '../../assests/icons/marketing-icon.png';
   import constructionicon from '../../assests/icons/construction-icon.png';
   import facilityicon from '../../assests/icons/facility-icon.png';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {FontFamily} from '../../assests/Constants/FontFamily';
+import { getCategory } from '../../Api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Category = ({navigation}) => {
   const [currentScreen, setCurrentScreen] = useState(0);
+  const [data,setData] = useState([])
+  const getData = async () => {
+    getCategory()
+      .then(res => {
+        console.log(res?.data?.data.length)
+        setData(res?.data?.data)
+      })
+      .catch(e => console.log(e));
+      };
 
+      useEffect(()=>{
+        getData()
+      },[])
   return (
     <SafeAreaView
       style={{
@@ -74,7 +88,32 @@ const Category = ({navigation}) => {
           </View>
           <View style={{width: '98%'}}>
             <View style={styles.category_row}>
-              <View style={styles.category_View}>
+              {data?.map((item,index)=>(
+                 <TouchableOpacity style={styles.category_View} key={index} onPress={()=>{
+                   navigation.navigate('Notes');
+                   AsyncStorage.setItem('ServiceId',JSON.stringify(item?.id))
+                   }} >
+                 <View style={styles.category_icon_view}>
+                   <Image
+                     source={truck}
+                     style={{
+                       width: '80%',
+                       objectFit: 'contain',
+                     }}
+                   />
+                 </View>
+                 <Text
+                   style={{
+                     color: '#000',
+                     fontSize: 18,
+                     textAlign: 'center',
+                     ...FontFamily.Medium,
+                   }}>
+                   {item?.name}
+                 </Text>
+               </TouchableOpacity>
+              ))}
+              {/* <View style={styles.category_View}>
                 <View style={styles.category_icon_view}>
                   <Image
                     source={truck}
@@ -172,7 +211,7 @@ const Category = ({navigation}) => {
                   style={{color: '#000', fontSize: 18, textAlign: 'center'}}>
                   Facility Service{' '}
                 </Text>
-              </View>
+              </View> */}
             </View>
           </View>
           <View
@@ -225,10 +264,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 20,
+    flexWrap:'wrap'
   },
   category_View: {
     alignItems: 'center',
     width: '48%',
+    marginBottom:10
   },
   category_icon_view: {
     width: '100%',

@@ -15,11 +15,13 @@ import { FontFamily } from '../../assests/Constants/FontFamily';
 import { useEffect, useState } from 'react';
 import SearchInput from '../../components/Input/SearchInput';
 import Categories from '../../components/CategoriesSilder';
-import { GetFavouriteService } from '../../Api';
+import { GetFavouriteService, getServiceByCategory } from '../../Api';
 import Favourite_box from '../../components/favouriteServicebox';
 import calander_icon from '../../assests/icons/calendar.png';
 import arrow_down from '../../assests/icons/arrow-down.png';
 import dollar from '../../assests/icons/dollar.png'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import FilterServiceBox from '../../components/filteringService';
 
 const FilterService = ({ navigation }) => {
   const [filter, setFilter] = useState('Recommended');
@@ -27,8 +29,11 @@ const FilterService = ({ navigation }) => {
   const category = ['Near you', 'Available', 'Shuffle', 'Trending'];
 
   const getData = async () => {
-    GetFavouriteService()
+   const id  = await AsyncStorage.getItem('ServiceId')
+    console.log(id)
+      getServiceByCategory(id)
       .then(res => {
+        console.log(res?.data?.data[0],"id");
         setData(res?.data?.data);
       })
       .catch(e => console.log(e));
@@ -115,8 +120,8 @@ const FilterService = ({ navigation }) => {
             </View>
             <View style={{ width: '98%' }}>
               {data?.map((i, index) => {
-                let a = JSON.parse(i?.service?.services_images[0]?.images);
-                return <Favourite_box data={i} images={a} key={index} />;
+                let a = JSON.parse(i?.services_images[0]?.images);
+                return <FilterServiceBox data={i} images={a}  key={index} />;
               })}
             </View>
           </View>
